@@ -4,7 +4,7 @@ export const ALL_COUNTRIES = {
   iceland: { 
     label: 'Iceland',
     coordinates: {
-      longitude: -64.9631,
+      longitude: 64.9631,
       latitude: -19.0208
     }
   },
