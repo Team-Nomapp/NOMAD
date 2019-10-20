@@ -12,7 +12,7 @@ import DeckGL from '@deck.gl/react';
 import { StaticMap } from 'react-map-gl';
 
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoieWFuaXZzaWxiZXJtYW4iLCJhIjoiY2sxeG94eG8xMGVzdzNub2N6dnRlaHB4MiJ9.4aYe5bEeBZbG_o8ZF7jo5g";
-const apiUrl = "http://localhost:4000" // "http://c65e76a4.ngrok.io/sendPreferences";
+const apiUrl =  "http://d3494219.ngrok.io"; //"http://localhost:4000" // "http://c65e76a4.ngrok.io/sendPreferences";
 
 function processData(data) { 
   return data.map(i => ({
@@ -73,7 +73,7 @@ const Map = () => {
   const [ filterMode, setFilterMode ] = useState('temp');
   const { state } = useContext(_Context);
 
-  const { country, region, land, bumpy, temperature } = state;
+  const { country, region, land, bumpy, temperature, water } = state;
   const [ viewState, mode ] = useMode(country, region);
 
   useEffect(() => {
@@ -86,7 +86,14 @@ const Map = () => {
     setResults(parsed);
   };
 
-  const layers = useLayers(mode, data, filterMode);
+  const waterData = data.filter((i, key) =>
+    ( 
+      (key % (water[0] - water[1])) >= 0 && 
+      (key % (water[0] - water[1])) <= 10
+    )
+  );
+
+  const layers = useLayers(mode, waterData, filterMode);
 
   return (
     <>
