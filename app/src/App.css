@@ -1,0 +1,27 @@
+@import '~antd/dist/antd.css';
+
+body {
+  background: linear-gradient(#232e33, black);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.ant-carousel .slick-slide {
+  height: 300px;
+  line-height: 300px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+.ant-anchor-wrapper {
+  background-color: transparent !important;
+  width: 100px !important;
+  position: fixed !important;
+  right: 50% !important;
+  top: 45% !important;
+  z-index: 9999;
+}
