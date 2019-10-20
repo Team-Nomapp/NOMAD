@@ -1,18 +1,26 @@
-
+import barran from './images/barren.jpg';
+import cropland from './images/cropland.jpg';
+import forest from './images/forest.jpg';
+import herb from './images/herb.jpg';
+import shrub from './images/Shrubland.jpg';
+import mosiac from './images/mosiac.jpg';
+import snow from './images/snow.jpg';
 
 export const ALL_COUNTRIES = {
-  iceland: { 
-    label: 'Iceland',
-    coordinates: {
-      longitude: 64.9631,
-      latitude: -19.0208
-    }
-  },
   burundi: { 
     label: 'Burundi', 
     coordinates: {
-      longitude: 3.3731,
-      latitude: 29.9189
+      longitude: 29.9189,
+      latitude: -3.3731,
+      zoom: 8
+    },
+    rest: {
+      land: 25,
+      year: '2015',
+      bumpy: [30, 70],
+      water: [10, 60],
+      temperature: [0, 50],
+      urban: [20, 100]
     }
   }
 }
@@ -21,46 +29,55 @@ export const ALL_LANDS = [
   {
     title: "Barren",
     value: 1,
-    description: ">60% of area is non-vegetated barren (sand, rock, soil) or permanent snow/ice with less than 10% vegetation."
+    description: ">60% of area is non-vegetated barren (sand, rock, soil) or permanent snow/ice with less than 10% vegetation.",
+    img: barran
   },
   {
     title: "Permanent Snow and Ice ",
     value: 2,
-    description: ">60% of area is covered by snow and ice for at least 10 months of the year. "
+    description: ">60% of area is covered by snow and ice for at least 10 months of the year. ",
+    img: snow
   },
   {
     title: "Dense Forests",
     value: 10,
-    description: "Tree cover >60% (canopy >2m)."
+    description: "Tree cover >60% (canopy >2m).",
+    img: forest
   },
   {
     title: "Open Forests",
     value: 20,
-    description: "Tree cover 10-60% (canopy >2m). "
+    description: "Tree cover 10-60% (canopy >2m). ",
+    img: forest
   },
   {
-    title: "Forest/Cropland Mosaics",
+    title: "Forest / Cropland Mosaics",
     value: 25,
-    description: "Mosaics of small-scale cultivation 40-60% with >10% natural tree cover."
+    description: "Mosaics of small-scale cultivation 40-60% with >10% natural tree cover.",
+    img: cropland
   },
   {
     title: "Natural Herbaceous",
     value: 30,
-    description: "Dominated by herbaceous annuals (<2m). At least 10% cover."
+    description: "Dominated by herbaceous annuals (<2m). At least 10% cover.",
+    img: herb
   },
   {
-    title: "Natural Herbaceous/Croplands Mosaics",
+    title: "Croplands Mosaics",
     value: 35,
-    description: "Mosaics of small-scale cultivation 40-60% with natural shrub or herbaceous vegetation."
+    description: "Mosaics of small-scale cultivation 40-60% with natural shrub or herbaceous vegetation.",
+    img: mosiac
   },
   {
     title: "Herbaceous Croplands",
     value: 36,
-    description: "Dominated by herbaceous annuals (<2m). At least 60% cover. Cultivated fraction >60%."
+    description: "Dominated by herbaceous annuals (<2m). At least 60% cover. Cultivated fraction >60%.",
+    img: herb
   },
   {
     title: "Shrublands",
     value: 40,
-    description: "Shrub cover >60% (1-2m)."
+    description: "Shrub cover >60% (1-2m).",
+    img: shrub
   }
 ];

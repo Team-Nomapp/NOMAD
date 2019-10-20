@@ -13,10 +13,10 @@ const Slider = ({ type, item, max, min, title, description }) => {
 
   return (
     <>
-      <Title level={4}>{title}</Title>
-      <Paragraph>{description}</Paragraph>
+      <Title style={{ fontSize: '15px', margin: '5px 0' }} level={4}>{title}</Title>
+      <Paragraph style={{ lineHeight: '15px', maxWidth: 350 }}>{description}</Paragraph>
       <AntdSlider 
-        style={{ width: 200 }}
+        style={{ width: 200, marginBottom: 20 }}
         range 
         defaultValue={[0, 100]} 
         value={value}
@@ -33,26 +33,34 @@ const Range = () => {
   return (
     <>
       <Slider
-        title="Distance from water"
-        description="..."
+        title="How close to water?"
+        description="Proximity to water bodies: rivers, lakes, mangrove swamps, sea…"
         type="WATER"
         item="water"
         max={100}
         min={0}
       />
       <Slider 
-        title="Bumpiness"
-        description="..."
+        title="How bumpy?"
+        description="Elevation distribution. Smaller numbers mean flatter terrains, larger numbers irregular terrains."
         type="BUMPY"
         item="bumpy"
         max={100}
         min={0}
       />
       <Slider 
-        title="Temperature increase"
-        description="..."
+        title="Temperature increase per year?"
+        description="Climate change prediction. (ºC/year)"
         type="TEMPERATURE"
         item="temperature"
+        max={100}
+        min={0}
+      />
+      <Slider 
+        title="How close to Urban Areas"
+        description="Urban and Built-up Lands. Including building materials, asphalt, and vehicles. "
+        type="URBAN"
+        item="urban"
         max={100}
         min={0}
       />

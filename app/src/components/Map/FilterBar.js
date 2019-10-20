@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { _Context } from '../../App';
 import styled from 'styled-components';
 import { Icon, Tooltip } from 'antd';
 
@@ -22,19 +23,61 @@ const I = styled(Icon)`
   }
 `;
 
-const FilterBar = ({ setFilterMode, filterMode, show }) => {
+const Options = styled.div`
+  position: absolute;
+  transform: translateX(-60px) translateY(-5px);
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-size: 10px;
+`;
+
+const A = styled.a`
+  color: #fff;
+  opacity: ${({ selected }) => selected ? '1' : '0.6'};
+  &:hover {
+    color: #fff !important;
+    opacity: 1;
+  }
+`;
+
+const FilterBar = ({ 
+  setFilterMode, 
+  filterMode,
+  show 
+}) => {
+  const years = [ '2002', '2015', 'Predicted' ];
+  const { state: { year }, dispatch } = useContext(_Context);
+
+  const setYear = payload => 
+    dispatch({type: 'UPDATE_YEAR', payload});
+
   return show && (
     <Bar>
-      <Tooltip
-        placement="left" 
-        title="Temperature Range"
-      >
+      <div>
+        { filterMode === 'temp' && (
+          <Options>
+            {years.map(y => (
+              <A 
+                selected={year === y}
+                onClick={() => setYear(y)}
+              >
+                {y}
+              </A>
+            ))}
+          </Options>
+        ) }
+        <Tooltip
+          placement="left" 
+          title="Temperature Range"
+        >
         <I
           onClick={() => setFilterMode(filterMode === 'temp' ? null : 'temp')}
           selected={ filterMode === 'temp' }
           type="heat-map" 
         />
-      </Tooltip>
+        </Tooltip>
+      </div>
       <Tooltip 
         placement="left" 
         title="Elevation"

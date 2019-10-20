@@ -12,7 +12,6 @@ export const LandContainer = styled.div`
     > div.land-card-img {
       width: 100%;
       height: 100px;
-      background-color: red;
     }
 
     > p {

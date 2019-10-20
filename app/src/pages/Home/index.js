@@ -16,19 +16,14 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <Title>NOMAD</Title>
-      <Paragraph>
-        Ant Design, a design language for background applications, is refined by Ant UED Team. Ant
-        Design, a design language for background applications, is refined by Ant UED Team. Ant Design,
-        a design language for background applications, is refined by Ant UED Team. Ant Design, a
-        design language for background applications, is refined by Ant UED Team. Ant Design, a design
-        language for background applications, is refined by Ant UED Team. Ant Design, a design
-        language for background applications, is refined by Ant UED Team.
+      <Title level={4}>What if the perfect location for you exists in your country, but you haven’t discovered it yet?</Title>
+      <Paragraph style={{ marginBottom: 20, fontSize: 15 }}>
+        Nomad facilitates the use of satellite data to all audiences. It focuses mainly on refugees and nomads, who are looking for an optimal and safe location to settle.
       </Paragraph>
       <Form layout="inline" onSubmit={ handleSubmit }>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Get Started
           </Button>
         </Form.Item>
       </Form>

@@ -24,13 +24,23 @@ const Land = () => {
         {chunks.map(chunk => (
           <div>
             <LandContainer>
-              {chunk.map(({ title, description }) => (
+              {chunk.map(({ title, description, value, img }) => (
                 <div 
                   key={ title }
-                  style={{ opacity: land === title && 1 }}
-                  onClick={() => setLand(title)}
+                  style={{ 
+                    opacity: land === value && 1
+                  }}
+                  onClick={() => land === value ? setLand(null) : setLand(value)}
                 >
-                  <div className="land-card-img" />
+                  <div 
+                    className="land-card-img"
+                    style={{
+                      backgroundImage: `url(${img})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      overflow: 'hidden'
+                    }}
+                  />
                   <Title style={{ 
                     fontSize: 12,
                     margin: "5px 0"
