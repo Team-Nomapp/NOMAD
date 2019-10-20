@@ -1,0 +1,70 @@
+---
+title: "hackathon"
+output: html_document
+---
+```{r}
+install.packages("purrrlyr")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse) 
+library(magrittr)
+library(purrrlyr)
+```
+
+```{r}
+slopedem_tbl = read_csv("slope_dem.csv", col_names = TRUE)
+slopedem_tbl
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+data_tbl = read_csv(
+  "temp_data.csv",
+  col_names =TRUE) 
+min_tbl = read_csv(
+  "temp_min.csv",
+  col_names =TRUE) 
+
+```
+```{r}
+all_tbl = read_csv(
+  "collection_all.csv",
+  col_names =TRUE) 
+all_tbl
+
+```
+```{r}
+useful <- select(all_tbl,1:3) 
+useful
+```
+
+```{r}
+min_tbl <- select(all_tbl, starts_with("T_min"))
+max_tbl <- select(all_tbl, starts_with("T_max"))
+slope_tbl <- select(slopedem_tbl, starts_with("slope"))
+dem_tbl <- select(slopedem_tbl, starts_with("rv"))
+export = useful %>% mutate(Tmin_2019 = rowMeans(min_tbl,na.rm = TRUE, dims =1)) %>% mutate(Tmax_2019 = rowMeans(max_tbl,na.rm = TRUE, dims =1)) %>% mutate(slope = rowMeans(slope_tbl,na.rm = TRUE, dims =1)) %>% mutate(dem = rowMeans(dem_tbl,na.rm = TRUE, dims =1))
+export
+```
+
+
+```{r}
+write.csv(export, "/Users/oliviashi/Documents/spaceApp/allData.csv", row.names = TRUE)
+```
+
+
+
+
+
+
