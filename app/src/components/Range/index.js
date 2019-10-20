@@ -45,7 +45,7 @@ const Range = () => {
         description="Elevation distribution. Smaller numbers mean flatter terrains, larger numbers irregular terrains."
         type="BUMPY"
         item="bumpy"
-        max={100}
+        max={62}
         min={0}
       />
       <Slider 
@@ -53,16 +53,8 @@ const Range = () => {
         description="Climate change prediction. (ºC/year)"
         type="TEMPERATURE"
         item="temperature"
-        max={100}
-        min={0}
-      />
-      <Slider 
-        title="How close to Urban Areas"
-        description="Urban and Built-up Lands. Including building materials, asphalt, and vehicles. "
-        type="URBAN"
-        item="urban"
-        max={100}
-        min={0}
+        max={330}
+        min={290}
       />
     </>
   )

@@ -22,7 +22,7 @@ const p = str => (
 const FormPage = () => {
   return (
     <FormContainer>
-      <Anchor targetOffset={ 100 }>
+      <Anchor targetOffset={ 100 } style={{ opacity: 0.9 }}>
         <Link href="#form-country" title="Country" />
         <Link href="#form-land" title="Land" />
         <Link href="#form-range" title="Range" />

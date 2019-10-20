@@ -16,10 +16,10 @@ export const ALL_COUNTRIES = {
     },
     rest: {
       land: 25,
-      year: '2015',
-      bumpy: [30, 70],
+      year: '2019',
+      bumpy: [10, 40],
       water: [10, 60],
-      temperature: [0, 50],
+      temperature: [295, 303],
       urban: [20, 100]
     }
   }

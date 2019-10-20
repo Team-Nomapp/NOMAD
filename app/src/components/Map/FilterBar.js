@@ -25,7 +25,7 @@ const I = styled(Icon)`
 
 const Options = styled.div`
   position: absolute;
-  transform: translateX(-60px) translateY(-5px);
+  transform: translateX(-40px);
   display: flex;
   flex-direction: column;
   text-align: right;
@@ -46,7 +46,7 @@ const FilterBar = ({
   filterMode,
   show 
 }) => {
-  const years = [ '2002', '2015', 'Predicted' ];
+  const years = [ '2019', '2100' ];
   const { state: { year }, dispatch } = useContext(_Context);
 
   const setYear = payload => 
@@ -55,18 +55,6 @@ const FilterBar = ({
   return show && (
     <Bar>
       <div>
-        { filterMode === 'temp' && (
-          <Options>
-            {years.map(y => (
-              <A 
-                selected={year === y}
-                onClick={() => setYear(y)}
-              >
-                {y}
-              </A>
-            ))}
-          </Options>
-        ) }
         <Tooltip
           placement="left" 
           title="Temperature Range"

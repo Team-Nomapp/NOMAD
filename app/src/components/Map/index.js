@@ -1,29 +1,27 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Papa from 'papaparse';
 import axios from 'axios';
-import csvData from '../../newslopeData.csv';
 import { _Context } from '../../App';
 import { ALL_COUNTRIES } from '../../data';
 import lightingEffect from './lighting';
 import renderHeatMap from './heatmap';
 import renderElevation from './elevation';
+import renderTemperature from './temp';
 import FilterBar from './FilterBar';
 
 import DeckGL from '@deck.gl/react';
 import { StaticMap } from 'react-map-gl';
 
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoieWFuaXZzaWxiZXJtYW4iLCJhIjoiY2sxeG94eG8xMGVzdzNub2N6dnRlaHB4MiJ9.4aYe5bEeBZbG_o8ZF7jo5g";
+const apiUrl = "http://localhost:4000" // "http://c65e76a4.ngrok.io/sendPreferences";
 
-
-function processData(csvString) { 
-  const { data } = Papa.parse(csvString);
-  return data.slice(1).map(i => ({
-    id: i[0],
-    latitude: i[1],
-    longitude: i[2],
-    value: i[3],
-    tmin: i[4],
-    tmax: i[5]
+function processData(data) { 
+  return data.map(i => ({
+    id: i.id,
+    latitude: i.y,
+    longitude: i.x,
+    value: i.slope,
+    tmin: i.tmin_2100,
+    tmax: i.tmax_2100
   }))
 }
 
@@ -56,10 +54,13 @@ const useMode = (country, region) => {
 }
 
 const useLayers = (mode, data, filterMode) => {
+  console.log('useLayers', mode, data, filterMode);
   if (mode === 'country') {
     switch (filterMode) {
       case 'elevation':
         return renderElevation(data);
+      case 'temp':
+        return renderTemperature(data);
       default:
         return renderHeatMap(data)
     }
@@ -70,26 +71,22 @@ const useLayers = (mode, data, filterMode) => {
 const Map = () => {
   const [ data, setResults ] = useState([]);
   const [ filterMode, setFilterMode ] = useState('temp');
-  const { state: { country, region, land } } = useContext(_Context);
+  const { state } = useContext(_Context);
+
+  const { country, region, land, bumpy, temperature } = state;
   const [ viewState, mode ] = useMode(country, region);
 
   useEffect(() => {
-    fetchData()
-  }, [ country ]);
+    country && fetchData()
+  }, [ country, land, bumpy, temperature ]);
 
   const fetchData = async () => {
-    const result = await axios.get(csvData);
+    const result = await axios.post(apiUrl, state); // csvData
     const parsed = processData(result.data);
     setResults(parsed);
   };
 
-  // filter data by selected land 
-  const landData = !land ? data : data.filter((d, key) => {
-    return Number(d.value) == Number(land);
-  });
-
-  // filter by ranges
-  const layers = useLayers(mode, landData, filterMode);
+  const layers = useLayers(mode, data, filterMode);
 
   return (
     <>

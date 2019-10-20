@@ -5,9 +5,9 @@ export const initialState = {
   region: null,
   land: null,
   year: null,
-  bumpy: [0, 100],
+  bumpy: [0, 50],
   water: [0, 100],
-  temperature: [0, 100],
+  temperature: [295, 303],
   urban: [0, 100]
 };
 
