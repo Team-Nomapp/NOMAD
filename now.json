@@ -19,7 +19,7 @@
       "dest": "app/static/$1"
     },
     {
-      "src": "/api/test",
+      "src": "/test",
       "dest": "/api/index.js",
       "methods": ["GET"]
     },

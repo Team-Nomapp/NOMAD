@@ -84,7 +84,9 @@ const Map = () => {
   }, [ country, land, bumpy, temperature ]);
 
   const fetchData = async () => {
-    const result = await axios.post(apiUrl, state); // csvData
+    const result = await axios.get(apiUrl, {
+      params: state
+    }); // csvData
     const parsed = processData(result.data);
     setResults(parsed);
   };
