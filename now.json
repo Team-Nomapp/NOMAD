@@ -24,9 +24,9 @@
       "methods": ["GET"]
     },
     {
-      "src": "/api/api",
+      "src": "/api",
       "dest": "/api/index.js",
-      "methods": ["POST"]
+      "methods": ["GET"]
     },
     { "src": "/favicon.ico", "dest": "app/favicon.ico" },
     { "src": "/img/(.*)", "dest": "app/img/$1"},
