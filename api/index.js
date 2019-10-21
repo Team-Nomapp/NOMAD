@@ -22,7 +22,7 @@ app.get("/test", (req, res) => {
   res.send("Test");
 });
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   params = req.query;
   db.multi(`
     SELECT * FROM country 
