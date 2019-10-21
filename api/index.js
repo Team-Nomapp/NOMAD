@@ -4,7 +4,8 @@ const pgp = require('pg-promise')();
 var cors = require('cors')
 var bodyParser = require('body-parser');
 
-const port = 4000;
+const port = process.env.PORT || 4000;
+
 const app = express();
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -17,7 +18,7 @@ app.use(cors({ origin: "*" }))
 var cn = 'postgres://crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu';
 const db = pgp(cn);
 
-app.post('/', (req, res) => {
+app.post('/api', (req, res) => {
   params = req.body;
   db.multi(`
     SELECT * FROM country 
