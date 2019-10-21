@@ -4,7 +4,7 @@
   "builds": [
     { 
       "src": "api/index.js", 
-      "use": "@now/node-server" 
+      "use": "@now/node" 
     },
     {
       "src": "app/package.json",

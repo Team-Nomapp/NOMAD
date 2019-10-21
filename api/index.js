@@ -1,5 +1,5 @@
 const express = require('express');
-const http = require('http');
+// const http = require('http');
 const pgp = require('pg-promise')();
 var cors = require('cors')
 var bodyParser = require('body-parser');
@@ -45,5 +45,6 @@ app.get('/api', (req, res) => {
   });
 });
 
-const server = http.createServer(app);
-server.listen(port);
+// const server = http.createServer(app);
+// server.listen(port);
+app.listen(port);
