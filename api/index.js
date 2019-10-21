@@ -18,6 +18,10 @@ app.use(cors({ origin: "*" }))
 var cn = 'postgres://crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu';
 const db = pgp(cn);
 
+app.get("/test", (req, res, next) => {
+  res.send("Test");
+});
+
 app.post('/api', (req, res) => {
   params = req.body;
   db.multi(`
