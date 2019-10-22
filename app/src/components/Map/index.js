@@ -11,7 +11,7 @@ import FilterBar from './FilterBar';
 import DeckGL from '@deck.gl/react';
 import { StaticMap } from 'react-map-gl';
 
-const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoieWFuaXZzaWxiZXJtYW4iLCJhIjoiY2sxeG94eG8xMGVzdzNub2N6dnRlaHB4MiJ9.4aYe5bEeBZbG_o8ZF7jo5g";
+const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoieWFuaXZzaWxiZXJtYW4iLCJhIjoiY2syMTh6anpsMDQ5bjNiazVydWVqM2ZscSJ9.iobZUU5QfIabqvzkLNuNjg";
 const apiUrl = "/api"
 
 function processData(data) { 
