@@ -17,9 +17,9 @@ const I = styled(Icon)`
   margin-bottom: 10px;
   cursor: pointer;
   opacity: ${({ selected }) => selected ? '1' : '0.7'};
-  color: ${({ selected }) => selected ? '#eee' : '#fff'};
+  color: ${({ selected }) => selected ? '#707070' : '#bdbdbd'};
   &:hover {
-    color: #fff;
+    color: #bdbdbd;
   }
 `;
 
@@ -33,10 +33,10 @@ const Options = styled.div`
 `;
 
 const A = styled.a`
-  color: #fff;
+  color: #bdbdbd;
   opacity: ${({ selected }) => selected ? '1' : '0.6'};
   &:hover {
-    color: #fff !important;
+    color: #bdbdbd !important;
     opacity: 1;
   }
 `;

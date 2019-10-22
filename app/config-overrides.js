@@ -10,8 +10,8 @@ module.exports = override(
     javascriptEnabled: true,
     modifyVars: { 
       '@primary-color': '#1890ff',
-      '@heading-color': '#ffffff',
-      '@text-color': '#ffffff'
+      '@heading-color': '#333',
+      '@text-color': '#333'
     },
   })
 );

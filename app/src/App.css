@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
 
 body {
-  background: linear-gradient(#232e33, black);
+  background: linear-gradient(#fff, #eee);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -14,7 +14,7 @@ body {
 }
 
 .ant-carousel .slick-slide h3 {
-  color: #fff;
+  color: #333;
 }
 
 .ant-anchor-wrapper {

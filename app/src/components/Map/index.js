@@ -12,10 +12,7 @@ import DeckGL from '@deck.gl/react';
 import { StaticMap } from 'react-map-gl';
 
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoieWFuaXZzaWxiZXJtYW4iLCJhIjoiY2sxeG94eG8xMGVzdzNub2N6dnRlaHB4MiJ9.4aYe5bEeBZbG_o8ZF7jo5g";
-const apiUrl = "/api";
-  // "http://d3494219.ngrok.io"; 
-  // "http://localhost:4000" 
-  // "http://c65e76a4.ngrok.io/sendPreferences";
+const apiUrl = "/api"
 
 function processData(data) { 
   return data.map(i => ({
@@ -57,7 +54,6 @@ const useMode = (country, region) => {
 }
 
 const useLayers = (mode, data, filterMode) => {
-  console.log('useLayers', mode, data, filterMode);
   if (mode === 'country') {
     switch (filterMode) {
       case 'elevation':
@@ -69,7 +65,7 @@ const useLayers = (mode, data, filterMode) => {
     }
   };
   return [];
-}
+};
 
 const Map = () => {
   const [ data, setResults ] = useState([]);
@@ -86,7 +82,7 @@ const Map = () => {
   const fetchData = async () => {
     const result = await axios.get(apiUrl, {
       params: state
-    }); // csvData
+    }); 
     const parsed = processData(result.data);
     setResults(parsed);
   };
@@ -102,11 +98,13 @@ const Map = () => {
 
   return (
     <>
-      <FilterBar 
-        setFilterMode={ setFilterMode }
-        filterMode={ filterMode }
-        show={ mode === 'country' }
-      />
+      { country && (
+        <FilterBar 
+          setFilterMode={ setFilterMode }
+          filterMode={ filterMode }
+          show={ mode === 'country' }
+        />
+      ) }
       <DeckGL
         effects={[lightingEffect]}
         initialViewState={ defaultViewState }
@@ -116,9 +114,13 @@ const Map = () => {
       >
         <StaticMap 
           reuseMaps
-          mapStyle={'mapbox://styles/mapbox/dark-v9'}
+          mapStyle={'mapbox://styles/mapbox/light-v10?optimize=true'}
           preventStyleDiffing={true}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          maxZoom
+          flyToOptions={{
+            speed: 0.8
+          }}
         />
       </DeckGL>
     </>
