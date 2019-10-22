@@ -25,6 +25,7 @@ function processData(data) {
   }))
 }
 
+
 const defaultViewState = {
   latitude: 0,
   longitude: 0,
