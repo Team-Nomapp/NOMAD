@@ -1,7 +1,6 @@
 {
   "version": 2,
   "name": "NOMAD",
-  "scope": "Nomapp",
   "builds": [
     { 
       "src": "api/index.js", 
@@ -41,6 +40,6 @@
     }
   ],
   "env": {
-    "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token"
+    "REACT_APP_MAPBOX_ACCESS_TOKEN": "pk.eyJ1IjoieWFuaXZzaWxiZXJtYW4iLCJhIjoiY2syMTh6anpsMDQ5bjNiazVydWVqM2ZscSJ9.iobZUU5QfIabqvzkLNuNjg"
   }
 }
