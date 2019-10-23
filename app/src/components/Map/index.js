@@ -1,18 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { _Context } from '../../App';
-import { ALL_COUNTRIES } from '../../data';
 import lightingEffect from './lighting';
-import renderHeatMap from './heatmap';
-import renderElevation from './elevation';
-import renderTemperature from './temp';
 import FilterBar from './FilterBar';
+import { useMode, useLayers } from './hooks';
+import { defaultViewState } from './helpers';
 
 import DeckGL from '@deck.gl/react';
 import { StaticMap } from 'react-map-gl';
-
-const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoieWFuaXZzaWxiZXJtYW4iLCJhIjoiY2syMTh6anpsMDQ5bjNiazVydWVqM2ZscSJ9.iobZUU5QfIabqvzkLNuNjg";
-const apiUrl = "/api"
 
 function processData(data) { 
   return data.map(i => ({
@@ -24,49 +19,6 @@ function processData(data) {
     tmax: i.tmax_2100
   }))
 }
-
-
-const defaultViewState = {
-  latitude: 0,
-  longitude: 0,
-  zoom: 0,
-  pitch: 0,
-  bearing: 0
-};
-
-const useMode = (country, region) => {
-  if (!country && !region) {
-    return [defaultViewState, 'default'];
-  } else if (!!country && !region) {
-    // available regions mode
-    return [{
-      ...defaultViewState,
-      pitch: 45,
-      ...ALL_COUNTRIES[country].coordinates
-    }, 'country'];
-  } else {
-    // specific region mode
-    return [{
-      ...defaultViewState,
-      pitch: 60,
-      ...region.coordinates
-    }, 'region'];
-  }
-}
-
-const useLayers = (mode, data, filterMode) => {
-  if (mode === 'country') {
-    switch (filterMode) {
-      case 'elevation':
-        return renderElevation(data);
-      case 'temp':
-        return renderTemperature(data);
-      default:
-        return renderHeatMap(data)
-    }
-  };
-  return [];
-};
 
 const Map = () => {
   const [ data, setResults ] = useState([]);
@@ -81,7 +33,7 @@ const Map = () => {
   }, [ country, land, bumpy, temperature ]);
 
   const fetchData = async () => {
-    const result = await axios.get(apiUrl, {
+    const result = await axios.get('/api', {
       params: state
     }); 
     const parsed = processData(result.data);
@@ -117,7 +69,7 @@ const Map = () => {
           reuseMaps
           mapStyle={'mapbox://styles/mapbox/light-v10?optimize=true'}
           preventStyleDiffing={true}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
           maxZoom
           flyToOptions={{
             speed: 0.8

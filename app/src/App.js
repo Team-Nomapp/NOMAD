@@ -34,11 +34,7 @@ function App() {
           </Switch>
         </Col>
         <Col span={12} style={{
-          position: 'fixed',
-          right: '0px',
-          top: '0px',
-          height: '100vh',
-          width: '50%'
+          height: '100vh'
         }}>
           <Map />
         </Col>
