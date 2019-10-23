@@ -38,8 +38,5 @@
       "headers": { "cache-control": "s-maxage=0" },
       "dest": "/app/index.html"
     }
-  ],
-  "env": {
-    "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token"
-  }
+  ]
 }

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { Select } from './styles';
+import { Select, Input } from './styles';
 import { _Context } from '../../App';
 import { ALL_COUNTRIES } from '../../data';
 
 const { Option } = Select;
 
 const Home = () => {
-  const { dispatch } = useContext(_Context);
+  const { state: { country }, dispatch } = useContext(_Context);
 
   const setCountry = payload => 
     dispatch({type: 'UPDATE_COUNTRY', payload});
