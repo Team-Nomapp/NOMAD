@@ -1,12 +1,12 @@
 """
 
 Project NOMAD
+Team Nomapp
 
 CopyLeft 2019 Gavin Dove
 
 
 """
-
 import numpy
 import pickle
 
@@ -17,7 +17,7 @@ def kdtree(data, leafsize=10):
 
     Assemble multi-dimensional data points into a kd-tree. Output kd-tree represented by a
     list of tuples. The output kd-tree allows for search of up to 20-dimensional (continuous)
-    data for points contained in a user-defined hyper cube. Search complete in O(log n) time.
+    data for points contained in a user-defined hyper-rectangle. Search complete in O(log n) time.
 
     Input:
 
@@ -40,14 +40,14 @@ def kdtree(data, leafsize=10):
 
         leafsize:
 
-            max. number of data points to store in a leaf
+            Max. number of data points to store in a leaf
 
 
     Output:
 
         kd-tree:
 
-            list of tuples
+            List of tuples
 
     """
 
@@ -102,7 +102,7 @@ def kdtree(data, leafsize=10):
             else (_didx, _data, _left_hrect, _right_hrect, left, nodeptr)
 
 
-        # Insert node in kd-tree
+      # Insert node in kd-tree:
 
 
         # If leaf node, append leaf to tree
@@ -139,29 +139,8 @@ def kdtree(data, leafsize=10):
     return tree
 
 
-# Pickle output list of tuples so it can be stored on disk and read into Python scripts
-
-
-"""
-file_name = "Water_Pickle"
-file_object = open(file_name, 'rb')
-Urban_Matrix = pickle.load(file_object)
-
-Urban_Matrix_1 = Urban_Matrix[:,1]
-Urban_Matrix_1 = Urban_Matrix_1.reshape(1,-1)
-Urban_Matrix_2 = Urban_Matrix[:,2]
-Urban_Matrix_2 = Urban_Matrix_2.reshape(1,-1)
-Urban_Matrix_3 = Urban_Matrix[:,0]
-Urban_Matrix_3 = Urban_Matrix_3.reshape(1,-1)
-
-Urban_Matrix_Out = numpy.append(Urban_Matrix_1, Urban_Matrix_2, axis=0)
-Urban_Matrix_Out = numpy.append(Urban_Matrix_Out, Urban_Matrix_3, axis=0)
-
-#print(Urban_Matrix_Out.shape)
-#print(numpy.amin((Urban_Matrix_Out), axis=1))
-#print(numpy.amax(Urban_Matrix_Out, axis=1))
-
-"""
+# Pickle output list of tuples so it can be stored
+# on disk and read into search scripts
 
 FTrees = kdtree(data2, leafsize=4)
 

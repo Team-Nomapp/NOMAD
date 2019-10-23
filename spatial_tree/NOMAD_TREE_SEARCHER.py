@@ -1,3 +1,13 @@
+"""
+
+Project NOMAD
+Team Nomapp
+
+CopyLeft 2019 Gavin Dove
+
+
+"""
+
 import numpy
 import pickle
 import json
@@ -5,9 +15,9 @@ import json
 
 def intersect_rects(user_hrect, branch_hrect):
 
-    """
-    Check if user specified bounds are contained inside
-    current branch's hyperrectangle
+    """    
+    Check if bounds from user-defined hypercube
+    are contained inside current branch's hyper-rectangle
 
     """
 
@@ -26,7 +36,7 @@ def intersect_rects(user_hrect, branch_hrect):
 def intersect_rect_point(point, hrect):
 
     """
-    Check if a point is contained inside a hyperrectangle
+    Check if a point is contained inside a hyper-rectangle
 
     """
 
@@ -42,7 +52,10 @@ def intersect_rect_point(point, hrect):
 
 def radius_search(tree, input_rect):
 
-    """ find all points within radius of datapoint """
+    """
+    find all points within radius of datapoint
+
+    """
     stack = [tree[0]]
     inside = []
     while stack:
@@ -100,10 +113,10 @@ U_Rect[1,3] = json_data["maxPredictedTempIncrease"]
 
 """"
 
-Read in pickled spatial tree data from tree builder function,
-convert back to list of tuples, extract the point ID value for
-placement if the program output, "Final_Out". Note that if this
-list is empty, no points matching the user input request were found.
+Read in pickled kd-tree data from tree builder script, as list of tuples.
+Extract the point ID for placement in the program output, "Final_Out".
+Note that if this list is empty, no points matching the user input request
+were found.
 
 """
 
