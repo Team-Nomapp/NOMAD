@@ -49,6 +49,8 @@ const Map = () => {
 
   const layers = useLayers(mode, waterData, filterMode);
 
+  console.log({ env: process.env });
+
   return (
     <>
       { country && (
