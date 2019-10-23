@@ -41,5 +41,10 @@
   ],
   "env": {
     "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token"
+  },
+  "build": {
+    "env": {
+      "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token"
+    }
   }
 }
