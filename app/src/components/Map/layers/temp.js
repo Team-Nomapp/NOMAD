@@ -12,8 +12,6 @@ const colorRange = [
 export default function _renderLayers(data) {
   const cellSize = 20, gpuAggregation = true, aggregation = 'Sum';
 
-  console.log({ before: data });
-
   const mapped = data
     // .filter((d, key) => key % 100 === 0)
     .map(d => [
@@ -21,8 +19,6 @@ export default function _renderLayers(data) {
       Number(d.latitude),
       Number(d.tmax)
   ]);
-
-  console.log({ mapped });
 
   return [
     new ScreenGridLayer({

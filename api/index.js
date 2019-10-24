@@ -1,11 +1,11 @@
+require("dotenv").config();
+
 const express = require('express');
-// const http = require('http');
 const pgp = require('pg-promise')();
 var cors = require('cors')
 var bodyParser = require('body-parser');
 
 const port = process.env.PORT || 4000;
-
 const app = express();
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -15,12 +15,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 app.use(cors({ origin: "*" }))
 
-var cn = 'postgres://crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu';
+var cn = process.env.REACT_APP_POSTGRES_URL;
 const db = pgp(cn);
-
-app.get("/test", (req, res) => {
-  res.send("Test");
-});
 
 app.get('/api', (req, res) => {
   params = req.query;
@@ -45,6 +41,4 @@ app.get('/api', (req, res) => {
   });
 });
 
-// const server = http.createServer(app);
-// server.listen(port);
 app.listen(port);

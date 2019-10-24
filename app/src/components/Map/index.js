@@ -5,6 +5,8 @@ import lightingEffect from './lighting';
 import FilterBar from './FilterBar';
 import { useMode, useLayers } from './hooks';
 import { defaultViewState } from './helpers';
+import { renderLocation } from './layers';
+import { ALL_COUNTRIES } from '../../data';
 
 import DeckGL from '@deck.gl/react';
 import { StaticMap } from 'react-map-gl';
@@ -20,6 +22,9 @@ function processData(data) {
   }))
 }
 
+const API_URL = process.env.NODE_ENV === "development" ?
+  "http://localhost:4000/api" : "/api";
+
 const Map = () => {
   const [ data, setResults ] = useState([]);
   const [ filterMode, setFilterMode ] = useState('temp');
@@ -33,7 +38,7 @@ const Map = () => {
   }, [ country, land, bumpy, temperature ]);
 
   const fetchData = async () => {
-    const result = await axios.get('/api', {
+    const result = await axios.get(API_URL, {
       params: state
     }); 
     const parsed = processData(result.data);
@@ -48,8 +53,8 @@ const Map = () => {
   );
 
   const layers = useLayers(mode, waterData, filterMode);
-
-  console.log({ env: process.env });
+  const locationLayer = country ?
+    renderLocation(ALL_COUNTRIES[country].coordinates) : [];
 
   return (
     <>
@@ -65,7 +70,10 @@ const Map = () => {
         initialViewState={ defaultViewState }
         viewState={ viewState }
         controller={true}
-        layers={ layers }
+        layers={ [
+          ...locationLayer, 
+          ...layers
+        ] }
       >
         <StaticMap 
           reuseMaps

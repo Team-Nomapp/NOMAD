@@ -40,11 +40,13 @@
     }
   ],
   "env": {
-    "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token"
+    "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token",
+    "REACT_APP_POSTGRES_URL": "@react_app_postgres_url"
   },
   "build": {
     "env": {
-      "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token"
+      "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token",
+      "REACT_APP_POSTGRES_URL": "@react_app_postgres_url"
     }
   }
 }
