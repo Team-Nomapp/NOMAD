@@ -6,6 +6,12 @@ import shrub from './images/Shrubland.jpg';
 import mosiac from './images/mosiac.jpg';
 import snow from './images/snow.jpg';
 
+export const ALL_YEARS = [
+  '2020',
+  '2050',
+  '2100'
+];
+
 export const ALL_COUNTRIES = {
   burundi: { 
     label: 'Burundi', 
@@ -16,7 +22,6 @@ export const ALL_COUNTRIES = {
     },
     rest: {
       land: 25,
-      year: '2019',
       bumpy: [10, 40],
       water: [10, 60],
       temperature: [295, 303],

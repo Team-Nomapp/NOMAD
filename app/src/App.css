@@ -1,7 +1,8 @@
 @import '~antd/dist/antd.css';
 
 body {
-  background: linear-gradient(#fff, #eee);
+  /* background: linear-gradient(#fff, #eee); */
+  background: #fff;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }

@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 export const LandContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  overflow: scroll;
+  height: 300px;
+  width: 100%;
 
   > div {
-    width: 100px;
-    margin-right: 30px;
+    width: 100%;
+    margin-bottom: 30px;
     cursor: pointer;
     opacity: 0.5;
 

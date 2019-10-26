@@ -3,7 +3,7 @@ import { IconLayer, TextLayer } from '@deck.gl/layers';
 import icon from '../../../images/map-marker-alt-solid.svg';
 
 const iconMapping = {
-  marker: { x: 0, y: 0, width: 200, height: 200, mask: true }
+  marker: { x: 0, y: 0, width: 32, height: 32, mask: true }
 };
 
 export default function _renderLayers({ latitude, longitude }) {
@@ -24,23 +24,24 @@ export default function _renderLayers({ latitude, longitude }) {
     }
   ]
   return [
-    // new IconLayer({
-    //   data: [[
-    //     Number(longitude), 
-    //     Number(latitude)
-    //   ]],
-    //   pickable: true,
-    //   wrapLongitude: true,
-    //   getPosition: d => d,
-    //   iconAtlas: icon,
-    //   iconMapping,
-    //   // onHover: this._onHover,
-    //   id: 'icon',
-    //   getIcon: d => 'marker',
-    //   sizeUnits: 'meters',
-    //   sizeScale: 2000,
-    //   sizeMinPixels: 6
-    // }),
+    new IconLayer({
+      data: [[
+        Number(longitude), 
+        Number(latitude)
+      ]],
+      pickable: true,
+      wrapLongitude: true,
+      getPosition: d => d,
+      iconAtlas: 'https://deck.gl/images/icon-atlas.png',
+      iconMapping,
+      // onHover: this._onHover,
+      id: 'icon',
+      getIcon: d => 'marker',
+      getSize: d => 5,
+      sizeUnits: 'meters',
+      sizeScale: 15,
+      sizeMinPixels: 6
+    }),
     // new GreatCircleLayer({
     //   id: 'great-circle-layer',
     //   data,

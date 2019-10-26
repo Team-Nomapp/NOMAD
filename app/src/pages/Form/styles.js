@@ -1,5 +1,27 @@
 import styled from 'styled-components';
-import { Form as AntdForm } from 'antd';
+import { Form as AntdForm, Row as AntdRow } from 'antd';
+
+export const Row = styled(AntdRow)`
+  > div.ant-col {
+    &:first-child {
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      background-color: #fff;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    &:nth-child(2) {
+      width: 67%;
+    }
+
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 35%;
+  }
+`;
 
 export const FormContainer = styled.div`
   padding-left: 50px;

@@ -1,10 +1,10 @@
-import { ALL_COUNTRIES } from './data';
+import { ALL_COUNTRIES, ALL_YEARS } from './data';
 
 export const initialState = {
   country: null,
   region: null,
   land: null,
-  year: null,
+  year: ALL_YEARS[0],
   bumpy: [0, 50],
   water: [0, 100],
   temperature: [295, 303],

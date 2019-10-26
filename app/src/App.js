@@ -1,44 +1,25 @@
-import React, { useState, useReducer, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import { useTransition, animated } from 'react-spring';
-import { Col } from 'antd';
-
+import React, { useReducer } from 'react';
+import { Switch, Route } from "react-router-dom";
 import './App.css';
-
-import { Row } from './styles';
+import Nav from './components/Nav';
 import { reducer, initialState } from './reducer';
-import useRouter from './useRouter';
-import Map from './components/Map';
 import Home from './pages/Home';
 import Form from './pages/Form';
+import About from './pages/About';
 
 export const _Context = React.createContext(null);
 
 function App() {
-  const { location } = useRouter();
   const [ state, dispatch ] = useReducer(reducer, initialState);
-
-  const transitions = useTransition(location, (location) => location.pathname, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-  });
 
   return (
     <_Context.Provider value={{ state, dispatch }}>
-      <Row>
-        <Col span={12}>
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/form" component={Form} exact />
-          </Switch>
-        </Col>
-        <Col span={12} style={{
-          height: '100vh'
-        }}>
-          <Map />
-        </Col>
-      </Row>
+      <Nav />
+      <Switch>
+        <Route path="/" component={Home} exact />
+        <Route path="/demo" component={Form} exact />
+        <Route path="/about" component={About} exact />
+      </Switch>
     </_Context.Provider>
   );
 }

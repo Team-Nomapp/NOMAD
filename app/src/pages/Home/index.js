@@ -11,14 +11,14 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    history.push("/form");
+    history.push("/demo");
   }
 
   return (
     <HomeContainer>
-      <Title level={4}>What if the perfect location for you exists in your country, but you haven’t discovered it yet?</Title>
+      <Title level={4}>Find Home.</Title>
       <Paragraph style={{ marginBottom: 20, fontSize: 15 }}>
-        Nomad facilitates the use of satellite data to all audiences. It focuses mainly on refugees and nomads, who are looking for an optimal and safe location to settle.
+        We search every corner of the globe for your ideal habitat, so you can focus on turning it from a habitat to a home.
       </Paragraph>
       <Form layout="inline" onSubmit={ handleSubmit }>
         <Form.Item>
