@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Typography } from 'antd';
-import group from '../../images/squad.jpg';
+import group from 'images/squad.jpg';
 
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 const Container = styled.div`
   text-align: center;
@@ -17,6 +17,24 @@ const Container = styled.div`
 
   > img {
     width: 70%;
+  }
+
+  @media (max-width: 800px) {
+    > div {
+      padding: 0 100px;
+    }
+    > img {
+      width: 85%;
+    }
+  }
+
+  @media (max-width: 500px) {
+    > div {
+      padding: 0 50px;
+    }
+    > img {
+      width: 95%;
+    }
   }
 `;
 

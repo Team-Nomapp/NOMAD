@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Tabs, Typography } from 'antd';
+import { Tabs, Typography, Icon } from 'antd';
+import CountrySelect from 'components/CountrySelect'; 
+import LandSelect from 'components/Land';
+import Range from 'components/Range';
+import { _Context } from 'App';
+
 import { FormContainer, Form } from './styles';
-import CountrySelect from '../../components/CountrySelect'; 
-import LandSelect from '../../components/Land';
-import Range from '../../components/Range';
-import { _Context } from '../../App';
 
 const { TabPane } = Tabs;
 const { Title, Paragraph } = Typography;
@@ -22,7 +23,7 @@ const p = str => (
 
 const FormPage = () => {
   const [ key, setKey ] = useState("1");
-  const { state: { country } } = useContext(_Context);
+  const { state: { country, collapsed } } = useContext(_Context);
 
   const handleTabSelect = k => {
     if (!!country) {
@@ -42,7 +43,10 @@ const FormPage = () => {
           activeKey={key}
           onTabClick={ handleTabSelect }
         >
-          <TabPane tab="Country" key="1">
+          <TabPane 
+            tab={(<Icon type="flag" />)}
+            key="1"
+          >
             <Item>
               <div id="form-country">
                 { label("Select your destination country") }
@@ -51,14 +55,23 @@ const FormPage = () => {
               </div>
             </Item>
           </TabPane>
-          <TabPane tab="Land" key="2" disabled={!country} style={{ width: '100%' }}>
+          <TabPane 
+            tab={(<Icon type="picture" />)}
+            key="2" 
+            disabled={!country} 
+            style={{ width: '100%' }}
+          >
             <Item>
               <div id="form-land">
                 <LandSelect />
               </div>
             </Item>
           </TabPane>
-          <TabPane tab="Filters" key="3" disabled={!country}>
+          <TabPane 
+            tab={(<Icon type="sliders" />)}
+            key="3" 
+            disabled={!country}
+          >
             <Item>
               <div id="form-range">
                 <Range />

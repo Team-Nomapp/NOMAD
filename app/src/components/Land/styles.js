@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 export const LandContainer = styled.div`
   overflow: scroll;
-  height: 300px;
+  height: 500px;
   width: 100%;
+  margin-top: 100px;
 
   > div {
     width: 100%;

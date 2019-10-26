@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Typography, Icon, Popover } from 'antd';
-import { _Context } from '../../App';
-import { ALL_LANDS } from '../../data';
+import useContext from 'hooks/useContext';
+import { ALL_LANDS } from 'state/data';
 import { LandContainer } from './styles';
 
 const { Title } = Typography;
 
 const Land = () => {
-  const { state: { land }, dispatch } = useContext(_Context);
+  const { state: { land }, dispatch } = useContext();
 
   const setLand = payload => 
     dispatch({type: 'UPDATE_LAND', payload});

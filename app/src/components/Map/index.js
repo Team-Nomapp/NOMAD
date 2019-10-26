@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { _Context } from '../../App';
+import DeckGL from '@deck.gl/react';
+import { StaticMap } from 'react-map-gl';
+
+import useContext from 'hooks/useContext';
+import { ALL_COUNTRIES } from 'state/data';
+
 import lightingEffect from './lighting';
-import FilterBar from './FilterBar';
 import { useMode, useLayers } from './hooks';
 import { defaultViewState } from './helpers';
 import { renderLocation } from './layers';
-import { ALL_COUNTRIES } from '../../data';
-
-import DeckGL from '@deck.gl/react';
-import { StaticMap } from 'react-map-gl';
 
 function processData(data) { 
   return data.map(i => ({
@@ -27,10 +27,9 @@ const API_URL = process.env.NODE_ENV === "development" ?
 
 const Map = () => {
   const [ data, setResults ] = useState([]);
-  const [ filterMode, setFilterMode ] = useState('temp');
-  const { state } = useContext(_Context);
+  const { state } = useContext();
 
-  const { country, region, land, bumpy, temperature, water } = state;
+  const { map: { mode: filterMode }, country, region, land, bumpy, temperature, water } = state;
   const [ viewState, mode ] = useMode(country, region);
 
   useEffect(() => {
@@ -57,36 +56,27 @@ const Map = () => {
     renderLocation(ALL_COUNTRIES[country].coordinates) : [];
 
   return (
-    <>
-      { country && (
-        <FilterBar 
-          setFilterMode={ setFilterMode }
-          filterMode={ filterMode }
-          show={ mode === 'country' }
-        />
-      ) }
-      <DeckGL
-        effects={[lightingEffect]}
-        initialViewState={ defaultViewState }
-        viewState={ viewState }
-        controller={true}
-        layers={ [
-          ...locationLayer, 
-          ...layers
-        ] }
-      >
-        <StaticMap 
-          reuseMaps
-          mapStyle={'mapbox://styles/mapbox/light-v10?optimize=true'}
-          preventStyleDiffing={true}
-          mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-          maxZoom
-          flyToOptions={{
-            speed: 0.8
-          }}
-        />
-      </DeckGL>
-    </>
+    <DeckGL
+      effects={[lightingEffect]}
+      initialViewState={ defaultViewState }
+      viewState={ viewState }
+      controller={true}
+      layers={ [
+        ...locationLayer, 
+        ...layers
+      ] }
+    >
+      <StaticMap 
+        reuseMaps
+        mapStyle={'mapbox://styles/mapbox/light-v10?optimize=true'}
+        preventStyleDiffing={true}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+        maxZoom
+        flyToOptions={{
+          speed: 0.8
+        }}
+      />
+    </DeckGL>
   )
 }
 

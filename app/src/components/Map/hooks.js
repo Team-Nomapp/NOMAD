@@ -1,5 +1,5 @@
 import { defaultViewState } from './helpers';
-import { ALL_COUNTRIES } from '../../data';
+import { ALL_COUNTRIES } from 'state/data';
 import { renderElevation, renderTemperature, renderHeatMap } from './layers';
 
 export const useMode = (country, region) => {
@@ -27,7 +27,7 @@ export const useLayers = (mode, data, filterMode) => {
     switch (filterMode) {
       case 'elevation':
         return renderElevation(data);
-      case 'temp':
+      case 'temperature':
         return renderTemperature(data);
       default:
         return renderHeatMap(data)
