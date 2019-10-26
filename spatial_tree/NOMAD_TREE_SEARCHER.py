@@ -53,7 +53,7 @@ def intersect_rect_point(point, hrect):
 def radius_search(tree, input_rect):
 
     """
-    find all points within radius of datapoint
+    find all points within user-defined hyper-rectangle
 
     """
     stack = [tree[0]]
