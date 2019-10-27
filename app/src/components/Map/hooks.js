@@ -1,6 +1,6 @@
 import { defaultViewState } from './helpers';
 import { ALL_COUNTRIES } from 'state/data';
-import { renderElevation, renderTemperature, renderHeatMap } from './layers';
+import { renderRegions, renderElevation, renderTemperature, renderHeatMap } from './layers';
 
 export const useMode = (country, region) => {
   if (!country && !region) {
@@ -9,21 +9,31 @@ export const useMode = (country, region) => {
     // available regions mode
     return [{
       ...defaultViewState,
-      pitch: 45,
+      pitch: 0,
       ...ALL_COUNTRIES[country].coordinates
     }, 'country'];
   } else {
     // specific region mode
     return [{
       ...defaultViewState,
-      pitch: 60,
-      ...region.coordinates
+      pitch: 30,
+      longitude: region.longitude,
+      latitude: region.latitude,
+      zoom: 10
     }, 'region'];
   }
 }
 
-export const useLayers = (mode, data, filterMode) => {
+export const useLayers = (
+  loading,
+  mode, 
+  filterMode, 
+  { data, onClick, onHover }
+) => {
+  if (loading) return [];
   if (mode === 'country') {
+    return renderRegions(data, { onHover, onClick });
+  } else if (mode === 'region') {
     switch (filterMode) {
       case 'elevation':
         return renderElevation(data);
