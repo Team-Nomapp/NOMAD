@@ -18,6 +18,7 @@ class Resource(object):
     def on_post(self, req, resp):
 
         global myglobal
+        myglobal = str(myglobal)
         resp.body = myglobal
         resp.status = falcon.HTTP_200
 
@@ -142,7 +143,6 @@ class search(object):
 api = application = falcon.API()
 
 tree_search = Resource()
-myglobal = "HELLO WORLD!"
-#S = search()
-#myglobal = S.depickle()
+S = search()
+myglobal = S.depickle()
 api.add_route('/tree_search', tree_search)
