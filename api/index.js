@@ -4,8 +4,7 @@ const express = require('express');
 const pgp = require('pg-promise')();
 const cors = require('cors')
 const bodyParser = require('body-parser');
-const querystring = require('querystring');
-const http = require('http');
+const axios = require('axios');
 
 const port = process.env.PORT || 4000;
 const app = express();
@@ -59,27 +58,15 @@ function getRandom(arr, n) {
 app.get('/api/country', (req, res) => {
   const data = extractParams(req.query);
 
-  let httpreq = http.request({
-    host: 'requestb.in',
-    port: 8000,
-    path: '/tree_search',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': Buffer.byteLength(data)
-    }
-  }, function (response) {
-    response.setEncoding('utf8');
-    response.on('data', function (chunk) {
-      console.log("body: " + chunk);
-    });
-    response.on('end', function() {
-      res.send('ok');
-    })
+  axios.post('http://localhost:8000/tree_search', {
+    minElevationDistribution: 7
+  })
+  .then(function (response) {
+    console.log({ response });
+  })
+  .catch(function (error) {
+    console.log({ error });
   });
-
-  httpreq.write(data);
-  httpreq.end();
 
   // db.multi(`
   //   SELECT * FROM country 
