@@ -90,7 +90,8 @@ Read in data from user request formatted as JSON file. JSON maps to dimensions o
 Elevation Distribution:             Dimension 1
 Fresh Water Proximity:              Dimension 2
 Urban Proximity:                    Dimension 3
-Predicted Temp Increase:            Dimension 4
+Arable Proximity:                   Dimension 4
+Predicted Temp Increase:            Dimension 5
 
 Selected Land Cover object to be placed in separate variable.
 
@@ -100,16 +101,17 @@ json_file = open('USER_INPUT.json')
 json_string = json_file.read()
 json_data = json.loads(json_string)
 
-U_Rect = numpy.zeros((2,4))
-U_Rect[0,0] = json_data["minElevationDistribution"]
-U_Rect[1,0] = json_data["maxElevationDistribution"]
-U_Rect[0,1] = json_data["minFreshWaterProximity"]
-U_Rect[1,1] = json_data["maxFreshWaterProximity"]
-U_Rect[0,2] = json_data["minUrbanProximity"]
-U_Rect[1,2] = json_data["maxUrbanProximity"]
-U_Rect[0,3] = json_data["minPredictedTempIncrease"]
-U_Rect[1,3] = json_data["maxPredictedTempIncrease"]
-
+U_Rect = numpy.zeros((2,5))
+U_Rect[0,0] = float(json_data["minElevationDistribution"])
+U_Rect[1,0] = float(json_data["maxElevationDistribution"])
+U_Rect[0,1] = float(json_data["minFreshWaterProximity"])
+U_Rect[1,1] = float(json_data["maxFreshWaterProximity"])
+U_Rect[0,2] = float(json_data["minUrbanProximity"])
+U_Rect[1,2] = float(json_data["maxUrbanProximity"])
+U_Rect[0,3] = float(json_data["minArableProximity"])
+U_Rect[1,3] = float(json_data["maxArableProximity"])
+U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
+U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"])
 
 """"
 
