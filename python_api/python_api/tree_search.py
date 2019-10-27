@@ -18,8 +18,8 @@ class Resource(object):
     def on_post(self, req, resp):
 
         global myglobal
-        myglobal = str(myglobal)
-        resp.body = myglobal
+        BRUH = len(str(myglobal))
+        resp.body = str(BRUH)
         resp.status = falcon.HTTP_200
 
         """
