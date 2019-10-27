@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Typography, Form, Button } from 'antd';
+
 import { HomeContainer } from './styles';
-import { _Context } from '../../App';
 
 const { Title, Paragraph } = Typography;
 

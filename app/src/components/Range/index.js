@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import { _Context } from '../../App';
+import React from 'react';
+import useContext from 'hooks/useContext';
 import { Slider as AntdSlider, Typography } from 'antd';
 
 const { Title, Paragraph } = Typography;
 
 const Slider = ({ type, item, max, min, title, description }) => {
-  const { state, dispatch } = useContext(_Context);
+  const { state, dispatch } = useContext();
   const value = state[item];
 
   const set = payload => 
