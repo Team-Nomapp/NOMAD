@@ -2,8 +2,10 @@ require("dotenv").config();
 
 const express = require('express');
 const pgp = require('pg-promise')();
-var cors = require('cors')
-var bodyParser = require('body-parser');
+const cors = require('cors')
+const bodyParser = require('body-parser');
+const querystring = require('querystring');
+const http = require('http');
 
 const port = process.env.PORT || 4000;
 const app = express();
@@ -55,15 +57,39 @@ function getRandom(arr, n) {
 }
 
 app.get('/api/country', (req, res) => {
-  db.multi(`
-    SELECT * FROM country 
-    WHERE 
-      ${ GENERAL_FILTER }
-  `, extractParams(req.query)).then(data => {
-    res.json(getRandom(data[0], 10));
-  }).catch(err => {
-    console.log({ err });
-  })
+  const data = extractParams(req.query);
+
+  let httpreq = http.request({
+    host: 'requestb.in',
+    port: 8000,
+    path: '/tree_search',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': Buffer.byteLength(data)
+    }
+  }, function (response) {
+    response.setEncoding('utf8');
+    response.on('data', function (chunk) {
+      console.log("body: " + chunk);
+    });
+    response.on('end', function() {
+      res.send('ok');
+    })
+  });
+
+  httpreq.write(data);
+  httpreq.end();
+
+  // db.multi(`
+  //   SELECT * FROM country 
+  //   WHERE 
+  //     ${ GENERAL_FILTER }
+  // `, extractParams(req.query)).then(data => {
+  //   res.json(getRandom(data[0], 10));
+  // }).catch(err => {
+  //   console.log({ err });
+  // })
 });
 
 app.get('/api/country/region', (req, res) => {
