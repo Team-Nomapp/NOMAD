@@ -16,13 +16,8 @@ class Resource(object):
 
     def on_post(self, req, resp):
 
-        global myglobal
-        BRUH = len(str(myglobal))
-        resp.body = str(BRUH)
-        resp.status = falcon.HTTP_200
-
-        """
         json_data = json.loads(req.stream.read())
+        print(json_data)
 
         U_Rect = numpy.zeros((2,5))
         U_Rect[0,0] = float(json_data["minElevationDistribution"])
@@ -36,14 +31,16 @@ class Resource(object):
         U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
         U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"])
 
-        global myglobal
-        SS = search()
-        Result = SS.radius_search(myglobal, U_Rect)
+        resp.body = U_Rect[0,0]
+        resp.status = falcon.HTTP_200        
+       
+        #global myglobal
+        #SS = search()
+        #Result = SS.radius_search(myglobal, U_Rect)
         
-        data = {'resultIndices': Result}
-        resp.body = json.dumps(data)
-        resp.status = falcon.HTTP_200
-        """
+        #data = {'resultIndices': Result}
+        #resp.body = json.dumps(data)
+        #resp.status = falcon.HTTP_200
 
 class search(object):
 
