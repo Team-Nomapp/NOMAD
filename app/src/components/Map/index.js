@@ -34,13 +34,14 @@ const Map = () => {
     temperature, 
     water,
     urban,
-    arable
+    arable,
+    year
   } = state;
   const [ viewState, mode ] = useMode(country, region);
 
   useEffect(() => {
     country && !loading && fetchData()
-  }, [ country, region, land, bumpy, temperature, water, urban, arable ]);
+  }, [ country, region, land, bumpy, temperature, water, urban, arable, year ]);
 
   useEffect(() => {
     setLoading(false);
@@ -77,14 +78,17 @@ const Map = () => {
       buildQuery(region), {
       params: {
         ...state,
+        temperature: [
+          state.temperature[0] + 273.15,
+          state.temperature[1] + 273.15
+        ],
         ...(!region ? {} : {
-          latitude: region.latitude,
-          longitude: region.longitude
+          latitude: region.y,
+          longitude: region.x
         })
       }
     }); 
-    console.log({ result });
-    const parsed = processData(result.data);
+    const parsed = processData(result.data, year);
     setResults(parsed);
   };
 

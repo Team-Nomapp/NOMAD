@@ -26,7 +26,7 @@ export const ALL_COUNTRIES = {
       land: 25,
       bumpy: [10, 40],
       water: [10, 60],
-      temperature: [295, 303],
+      temperature: [295 - 273.15, 303 - 273.15],
       urban: [20, 100]
     }
   }

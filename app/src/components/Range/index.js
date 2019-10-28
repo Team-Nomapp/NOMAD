@@ -74,9 +74,9 @@ const Range = () => {
         description="Climate change prediction. (ºC/year)"
         type="TEMPERATURE"
         item="temperature"
-        max={307}
-        min={297}
-        unit="K"
+        max={34}
+        min={23}
+        unit="C"
       />
       <Slider 
         title="Urban proximity"

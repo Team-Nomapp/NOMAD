@@ -20,12 +20,14 @@ const squash = data => {
 export default function _renderLayers(data) {
   const intensity = 1, threshold = 0.03, radiusPixels = 20;
 
+  console.log({ in: data });
+
   const mapped = data
     .filter((d, key) => key % 1000 === 0)
     .map(d => [
-      Number(d.longitude), 
-      Number(d.latitude),
-      Number(d.value)
+      Number(d.y), 
+      Number(d.x),
+      Number(d.dem)
   ]);
 
   return [

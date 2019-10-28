@@ -17,8 +17,8 @@ export default (data, { onHover, onClick }) => {
       getIcon: d => 'marker',
       sizeScale: 10,
       getPosition: d => [
-        Number(d.longitude),
-        Number(d.latitude)
+        Number(d.x),
+        Number(d.y)
       ],
       getSize: d => 5,
       getColor: d => [145, 213, 255],

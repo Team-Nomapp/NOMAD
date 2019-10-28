@@ -19,20 +19,22 @@ app.use(cors({ origin: "*" }))
 var cn = process.env.REACT_APP_POSTGRES_URL;
 const db = pgp(cn);
 
-const extractParams = (params) => ({
-  land: params.land,
-
-  tmin: params.temperature[0],
-  tmax: params.temperature[1],
-  slopeMin: params.bumpy[0],
-  slopeMax: params.bumpy[1],
-  arableMin: params.arable[0],
-  arableMax: params.arable[1],
-  waterMin: params.water[0],
-  waterMax: params.water[1],
-  urbanMin: params.urban[0],
-  urbanMax: params.urban[1]
-});
+const extractParams = (params) => {
+  return ({
+    land: params.land,
+  
+    tmin: params.temperature[0],
+    tmax: params.temperature[1],
+    slopeMin: params.bumpy[0],
+    slopeMax: params.bumpy[1],
+    arableMin: params.arable[0],
+    arableMax: params.arable[1],
+    waterMin: params.water[0],
+    waterMax: params.water[1],
+    urbanMin: params.urban[0],
+    urbanMax: params.urban[1]
+  })
+};
 
 const kmToLatLng = (km) => {
   // 1 point = 111.19 km
@@ -77,12 +79,14 @@ const kmToLatLng = (km) => {
 // });
 
 app.get('/api/country', (req, res) => {
+  const params = extractParams(req.query);
+  const { year } = req.query;
   db.multi(`
     SELECT * FROM country 
     WHERE 
       land = $/land/ AND 
-      tmin_2100 >= $/tmin/ AND 
-      tmax_2100 <= $/tmax/ AND
+      tmin_${year} >= $/tmin/ AND 
+      tmax_${year} <= $/tmax/ AND
       slope >= $/slopeMin/ AND
       slope <= $/slopeMax/ AND
       water_distance >= $/waterMin/ AND
@@ -91,7 +95,7 @@ app.get('/api/country', (req, res) => {
       urban_distance <= $/urbanMax/ AND
       arable_distance >= $/arableMin/ AND
       arable_distance <= $/arableMax/
-  `, extractParams(req.query)).then(data => {
+  `, params).then(data => {
     const arr = data[0];
     const random = getRandom(arr, arr.length < 10 ? arr.length : 10);
     res.json(random);
@@ -133,8 +137,8 @@ app.get('/api/country/region', (req, res) => {
     maxLon: lon + kmToLatLng(10),
     minLon: lon - kmToLatLng(10)
   }).then(data => {
-    const ret = getRandom(data[0], 50);
-    console.log({ ret });
+    const arr = data[0];
+    const ret = getRandom(arr, arr.length < 50 ? arr.length : 50);
     res.json(ret);
   }).catch(err => {
     console.log({ err });
