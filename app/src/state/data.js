@@ -1,10 +1,3 @@
-import barran from 'images/barren.jpg';
-import cropland from 'images/cropland.jpg';
-import forest from 'images/forest.jpg';
-import herb from 'images/herb.jpg';
-import shrub from 'images/Shrubland.jpg';
-import mosiac from 'images/mosiac.jpg';
-import snow from 'images/snow.jpg';
 
 export const ALL_YEARS = [
   '2020',
@@ -44,54 +37,54 @@ export const ALL_LANDS = [
     title: "Barren",
     value: 1,
     description: ">60% of area is non-vegetated barren (sand, rock, soil) or permanent snow/ice with less than 10% vegetation.",
-    img: barran
+    img: "https://nomapp.s3.amazonaws.com/images/barren.jpg"
   },
   {
     title: "Permanent Snow and Ice ",
     value: 2,
     description: ">60% of area is covered by snow and ice for at least 10 months of the year. ",
-    img: snow
+    img: "https://nomapp.s3.amazonaws.com/images/snow.jpg"
   },
   {
     title: "Dense Forests",
     value: 10,
     description: "Tree cover >60% (canopy >2m).",
-    img: forest
+    img: "https://nomapp.s3.amazonaws.com/images/forest.jpg"
   },
   {
     title: "Open Forests",
     value: 20,
     description: "Tree cover 10-60% (canopy >2m). ",
-    img: forest
+    img: "https://nomapp.s3.amazonaws.com/images/forest.jpg"
   },
   {
     title: "Forest / Cropland Mosaics",
     value: 25,
     description: "Mosaics of small-scale cultivation 40-60% with >10% natural tree cover.",
-    img: cropland
+    img: "https://nomapp.s3.amazonaws.com/images/cropland.jpg"
   },
   {
     title: "Natural Herbaceous",
     value: 30,
     description: "Dominated by herbaceous annuals (<2m). At least 10% cover.",
-    img: herb
+    img: "https://nomapp.s3.amazonaws.com/images/herb.jpg"
   },
   {
     title: "Croplands Mosaics",
     value: 35,
     description: "Mosaics of small-scale cultivation 40-60% with natural shrub or herbaceous vegetation.",
-    img: mosiac
+    img: "https://nomapp.s3.amazonaws.com/images/mosiac.jpg"
   },
   {
     title: "Herbaceous Croplands",
     value: 36,
     description: "Dominated by herbaceous annuals (<2m). At least 60% cover. Cultivated fraction >60%.",
-    img: herb
+    img: "https://nomapp.s3.amazonaws.com/images/herb.jpg"
   },
   {
     title: "Shrublands",
     value: 40,
     description: "Shrub cover >60% (1-2m).",
-    img: shrub
+    img: "https://nomapp.s3.amazonaws.com/images/Shrubland.jpg"
   }
 ];
