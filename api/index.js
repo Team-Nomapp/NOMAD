@@ -65,9 +65,10 @@ app.get('/api/country', (req, res) => {
       WHERE 
         id = ANY($/ids/)
     `, { ids }).then(data => {
-      res.json(data[0]);
+      res.json(data);
     }).catch(err => {
       console.log({ err });
+      res.json(err);
     })
   })
   .catch(function (error) {
