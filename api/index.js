@@ -59,13 +59,15 @@ app.get('/api/country', (req, res) => {
     maxPredictedTempIncrease: 304.0
   })
   .then(function (response) {
+    res.json(response);
+    return null;
     const ids = response.data.resultIndices; // [ 123, 345, ... ]
     db.multi(`
       SELECT * FROM country 
       WHERE 
         id = ANY($/ids/)
     `, { ids }).then(data => {
-      res.json(data);
+      res.json(data[0]);
     }).catch(err => {
       console.log({ err });
       res.json(err);
