@@ -36,7 +36,7 @@ const Land = () => {
               fontSize: 12,
               margin: "5px 0"
             }}>
-              <Popover style={{ maxWidth: 200 }} content={(<p>{ description }</p>)}>
+              <Popover content={(<p style={{ maxWidth: 200 }}>{ description }</p>)}>
                 <Icon type="question-circle" style={{ marginRight: 5 }} />
               </Popover>
               { title }

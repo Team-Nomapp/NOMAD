@@ -25,12 +25,22 @@ const Map = () => {
   const [ loading, setLoading ] = useState(false);
   const { state, dispatch } = useContext();
 
-  const { map: { style, mode: filterMode }, country, region, land, bumpy, temperature, water } = state;
+  const { 
+    map: { style, mode: filterMode }, 
+    country, 
+    region, 
+    land, 
+    bumpy, 
+    temperature, 
+    water,
+    urban,
+    arable
+  } = state;
   const [ viewState, mode ] = useMode(country, region);
 
   useEffect(() => {
     country && !loading && fetchData()
-  }, [ country, region, land, bumpy, temperature ]);
+  }, [ country, region, land, bumpy, temperature, water, urban, arable ]);
 
   useEffect(() => {
     setLoading(false);
