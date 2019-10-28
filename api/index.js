@@ -41,6 +41,40 @@ const kmToLatLng = (km) => {
   return km * ratio;
 }
 
+app.get('/api/country', (req, res) => {
+  const data = extractParams(req.query);
+
+  const r = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "";
+  const url = r + '/tree_search';
+  axios.post(url, {
+    minElevationDistribution: 0.0,
+    maxElevationDistribution: 10.0,
+    minFreshWaterProximity: 0.4,
+    maxFreshWaterProximity: 5.0,
+    minUrbanProximity: 50.0,
+    maxUrbanProximity: 87.0,
+    minArableProximity: 0.4,
+    maxArableProximity: 3.0,
+    minPredictedTempIncrease: 300.0,
+    maxPredictedTempIncrease: 304.0
+  })
+  .then(function (response) {
+    const ids = response.data.resultIndices; // [ 123, 345, ... ]
+    db.multi(`
+      SELECT * FROM country 
+      WHERE 
+        id = ANY($/ids/)
+    `, { ids }).then(data => {
+      res.json(data[0]);
+    }).catch(err => {
+      console.log({ err });
+    })
+  })
+  .catch(function (error) {
+    console.log({ error });
+  });
+});
+
 function getRandom(arr, n) {
   var result = new Array(n),
       len = arr.length,
@@ -54,41 +88,6 @@ function getRandom(arr, n) {
   }
   return result;
 }
-
-app.get('/api/country', (req, res) => {
-  const data = extractParams(req.query);
-
-  const r = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "";
-
-  axios.post(r + '/tree_search', {
-    minElevationDistribution: 0.0,
-    maxElevationDistribution: 10.0,
-    minFreshWaterProximity: 0.4,
-    maxFreshWaterProximity: 5.0,
-    minUrbanProximity: 50.0,
-    maxUrbanProximity: 87.0,
-    minArableProximity: 0.4,
-    maxArableProximity: 3.0,
-    minPredictedTempIncrease: 300.0,
-    maxPredictedTempIncrease: 304.0
-  })
-  .then(function (response) {
-    console.log('\n\n\n\noutput:', response.data.resultIndices);
-  })
-  .catch(function (error) {
-    console.log({ error });
-  });
-
-  // db.multi(`
-  //   SELECT * FROM country 
-  //   WHERE 
-  //     ${ GENERAL_FILTER }
-  // `, extractParams(req.query)).then(data => {
-  //   res.json(getRandom(data[0], 10));
-  // }).catch(err => {
-  //   console.log({ err });
-  // })
-});
 
 app.get('/api/country/region', (req, res) => {
   const
@@ -108,7 +107,9 @@ app.get('/api/country/region', (req, res) => {
     maxLon: lon + kmToLatLng(10),
     minLon: lon - kmToLatLng(10)
   }).then(data => {
-    res.json(data[0]);
+    const ret = getRandom(data[0], 50);
+    console.log({ ret });
+    res.json(ret);
   }).catch(err => {
     console.log({ err });
   })

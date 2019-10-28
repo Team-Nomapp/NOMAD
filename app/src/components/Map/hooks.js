@@ -9,14 +9,14 @@ export const useMode = (country, region) => {
     // available regions mode
     return [{
       ...defaultViewState,
-      pitch: 0,
+      pitch: 30,
       ...ALL_COUNTRIES[country].coordinates
     }, 'country'];
   } else {
     // specific region mode
     return [{
       ...defaultViewState,
-      pitch: 30,
+      pitch: 50,
       longitude: region.longitude,
       latitude: region.latitude,
       zoom: 10

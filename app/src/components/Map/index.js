@@ -15,8 +15,8 @@ import { renderLocation } from './layers';
 
 const controller = { 
   type: MapController,
-  scrollZoom: false,
-  doubleClickZoom: false
+  // scrollZoom: false,
+  // doubleClickZoom: false
 };
 
 const Map = () => {
@@ -73,6 +73,7 @@ const Map = () => {
         })
       }
     }); 
+    console.log({ result });
     const parsed = processData(result.data);
     setResults(parsed);
   };
