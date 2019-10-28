@@ -13,6 +13,7 @@ const FilterBar = () => {
       window: { isMobile }, 
       year, 
       country, 
+      region,
       map: { mode } 
     }, 
     dispatch 
@@ -30,21 +31,25 @@ const FilterBar = () => {
       payload: !collapsed
     });
 
-  return country && (
-    <Bar>
-      {/** MENU COLLAPSE */}
-      { isMobile && (
-        <div>
-          <div>
-            <I
-              onClick={setCollapsed}
-              type={ collapsed ? "menu-unfold" : "menu-fold" } 
-            />
-          </div>
-        </div>
-      ) }
+  const zoomOut = () =>
+    dispatch({
+      type: 'UPDATE_REGION',
+      payload: null
+    });
 
-      {/** MODES */}
+  const renderRegional = () => !!region && (
+    <>
+      <div>
+        <Tooltip
+          placement="left" 
+          title="Zoom Out"
+        >
+          <I
+            onClick={ zoomOut }
+            type="arrows-alt" 
+          />
+        </Tooltip>
+      </div>
       <div>
         <div>
           <Tooltip
@@ -72,7 +77,6 @@ const FilterBar = () => {
         </div>
       </div>
 
-      {/** YEARS */}
       <div>
         { ALL_YEARS.map(y => (
           <A 
@@ -83,7 +87,26 @@ const FilterBar = () => {
           </A>
         )) }
       </div>
-    </Bar>
+    </>
+  );
+
+  return (
+    <>
+      <Bar>
+        { isMobile && (
+          <div>
+            <div>
+              <I
+                onClick={setCollapsed}
+                type={ collapsed ? "menu-unfold" : "menu-fold" } 
+              />
+            </div>
+          </div>
+        ) }
+
+        { renderRegional() }
+      </Bar>
+    </>
   )
 }
 

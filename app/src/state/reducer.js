@@ -8,7 +8,7 @@ export const initialState = {
   },  
   map: {
     mode: MAP_MODES[0],
-    style: MAP_STYLES.dark
+    style: MAP_STYLES.light
   },
   collapsed: false,
   country: null,

@@ -5,7 +5,6 @@ Team Nomapp
 
 CopyLeft 2019 Gavin Dove
 
-
 """
 
 import falcon
@@ -67,16 +66,14 @@ class search(object):
 
         """
 
-    if ((user_hrect[0, 0] < branch_hrect[1, 0]) and (user_hrect[1, 0] > branch_hrect[0, 0])) and \
-            ((user_hrect[0, 1] < branch_hrect[1, 1]) and (user_hrect[1, 1] > branch_hrect[0, 1])) and \
-            ((user_hrect[0, 2] < branch_hrect[1, 2]) and (user_hrect[1, 2] > branch_hrect[0, 2])) and \
-            ((user_hrect[0, 3] < branch_hrect[1, 3]) and (user_hrect[1, 3] > branch_hrect[0, 3])) and \
-            ((user_hrect[0, 4] < branch_hrect[1, 4]) and (user_hrect[1, 4] > branch_hrect[0, 4])):
+        if ((user_hrect[0, 0] < branch_hrect[1, 0]) and (user_hrect[1, 0] > branch_hrect[0, 0])) and \
+                ((user_hrect[0, 1] < branch_hrect[1, 1]) and (user_hrect[1, 1] > branch_hrect[0, 1])) and \
+                ((user_hrect[0, 2] < branch_hrect[1, 2]) and (user_hrect[1, 2] > branch_hrect[0, 2])) and \
+                ((user_hrect[0, 3] < branch_hrect[1, 3]) and (user_hrect[1, 3] > branch_hrect[0, 3])) and \
+                ((user_hrect[0, 4] < branch_hrect[1, 4]) and (user_hrect[1, 4] > branch_hrect[0, 4])):
 
             return True
-
         else:
-
             return False
 
 
