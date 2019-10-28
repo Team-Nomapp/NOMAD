@@ -114,15 +114,15 @@ class search(object):
                 Num_Points = leaf_data.shape[1]
                 for count in range(Num_Points):
                     Current_Point = leaf_data[:,count]
-                    if intersect_rect_point(Current_Point, input_rect):
+                    if self.intersect_rect_point(Current_Point, input_rect):
                         inside.append(Current_Point)
 
             else:
 
-                if intersect_rects(input_rect,left_hrect):
+                if self.intersect_rects(input_rect,left_hrect):
                     stack.append(tree[left])
 
-                if intersect_rects(input_rect,right_hrect):
+                if self.intersect_rects(input_rect,right_hrect):
                     stack.append(tree[right])
 
         outside = []

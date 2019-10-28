@@ -59,10 +59,19 @@ app.get('/api/country', (req, res) => {
   const data = extractParams(req.query);
 
   axios.post('http://localhost:8000/tree_search', {
-    minElevationDistribution: 7
+    minElevationDistribution: 0.0,
+    maxElevationDistribution: 10.0,
+    minFreshWaterProximity: 0.4,
+    maxFreshWaterProximity: 5.0,
+    minUrbanProximity: 50.0,
+    maxUrbanProximity: 87.0,
+    minArableProximity: 0.4,
+    maxArableProximity: 3.0,
+    minPredictedTempIncrease: 300.0,
+    maxPredictedTempIncrease: 304.0
   })
   .then(function (response) {
-    console.log({ response });
+    console.log('\n\n\n\noutput:', response.data.resultIndices);
   })
   .catch(function (error) {
     console.log({ error });
