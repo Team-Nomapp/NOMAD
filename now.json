@@ -13,7 +13,7 @@
     },
     {
       "src": "python_api/python_api/tree_search.py",
-      "use": "@now/python"
+      "use": "@ardnt/now-python-wsgi"
     }
   ],
   "routes": [
