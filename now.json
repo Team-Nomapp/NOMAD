@@ -13,7 +13,11 @@
     },
     {
       "src": "python_api/python_api/tree_search.py",
-      "use": "@ardnt/now-python-wsgi"
+      "use": "@ardnt/now-python-wsgi",
+      "config": { 
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.6"
+      }
     }
   ],
   "routes": [
