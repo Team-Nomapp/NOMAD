@@ -13,7 +13,7 @@
     },
     {
       "src": "python_api/python_api/tree_search.py",
-      "use": "@ardnt/now-python-wsgi",
+      "use": "@now/python@canary",
       "config": { 
         "maxLambdaSize": "15mb",
         "runtime": "python3.6"
