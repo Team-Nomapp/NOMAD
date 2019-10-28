@@ -58,7 +58,9 @@ function getRandom(arr, n) {
 app.get('/api/country', (req, res) => {
   const data = extractParams(req.query);
 
-  axios.post('http://localhost:8000/tree_search', {
+  const r = process.env.NODE_ENV === "development" ? "http://localhost:8000" : "";
+
+  axios.post(r + '/tree_search', {
     minElevationDistribution: 0.0,
     maxElevationDistribution: 10.0,
     minFreshWaterProximity: 0.4,
