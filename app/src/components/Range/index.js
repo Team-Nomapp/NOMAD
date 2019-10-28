@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import useContext from 'hooks/useContext';
 import { Popover, Icon, Slider as AntdSlider, Typography } from 'antd';
+import { SliderContainer } from './styles';
 
 const { Title, Paragraph } = Typography;
 
-const Slider = ({ type, item, max, min, title, description }) => {
+const Slider = ({ type, item, max, min, title, description, unit }) => {
   const { state, dispatch } = useContext();
   const value = state[item];
   const [ stateValue, setStateValue ] = useState(value);
@@ -19,7 +20,7 @@ const Slider = ({ type, item, max, min, title, description }) => {
     dispatch({type: 'UPDATE_'+type, payload: stateValue });
 
   return (
-    <>
+    <SliderContainer>
       <div style={{ display: 'flex', alignItems: 'center' }} >
         <Popover content={(
             <Paragraph style={{ lineHeight: '15px', maxWidth: 250 }}>{description}</Paragraph>
@@ -37,8 +38,12 @@ const Slider = ({ type, item, max, min, title, description }) => {
         min={min}
         onChange={ setStateValue }
         onAfterChange={ set }
+        marks={{
+          [min]: `${min} ${unit}`,
+          [max]: `${max} ${unit}`
+        }}
       />
-    </>
+    </SliderContainer>
   )
 }
 
@@ -53,6 +58,7 @@ const Range = () => {
         item="water"
         max={174}
         min={0.4}
+        unit="km"
       />
       <Slider 
         title="How bumpy?"
@@ -61,6 +67,7 @@ const Range = () => {
         item="bumpy"
         max={60}
         min={0}
+        unit="m"
       />
       <Slider 
         title="Temperature increase per year?"
@@ -69,6 +76,7 @@ const Range = () => {
         item="temperature"
         max={307}
         min={297}
+        unit="K"
       />
       <Slider 
         title="Urban proximity"
@@ -77,14 +85,16 @@ const Range = () => {
         item="urban"
         max={170}
         min={0.4}
+        unit="km"
       />
       <Slider 
         title="Arable land proximity"
         description="Distance to the arable land (km)"
         type="ARABLE"
         item="arable"
-        max={185}
+        max={187}
         min={0}
+        unit="km"
       />
     </div>
   )

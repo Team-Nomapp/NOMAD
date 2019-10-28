@@ -20,11 +20,18 @@ var cn = process.env.REACT_APP_POSTGRES_URL;
 const db = pgp(cn);
 
 const extractParams = (params) => ({
+  land: params.land,
+
   tmin: params.temperature[0],
   tmax: params.temperature[1],
-  land: params.land,
   slopeMin: params.bumpy[0],
-  slopeMax: params.bumpy[1]
+  slopeMax: params.bumpy[1],
+  arableMin: params.arable[0],
+  arableMax: params.arable[1],
+  waterMin: params.water[0],
+  waterMax: params.water[1],
+  urbanMin: params.urban[0],
+  urbanMax: params.urban[1]
 });
 
 const kmToLatLng = (km) => {
@@ -73,13 +80,21 @@ app.get('/api/country', (req, res) => {
   db.multi(`
     SELECT * FROM country 
     WHERE 
-      tmin_2100 > $/tmin/ AND 
-      tmax_2100 < $/tmax/ AND
       land = $/land/ AND 
-      slope > $/slopeMin/ AND
-      slope < $/slopeMax/
+      tmin_2100 >= $/tmin/ AND 
+      tmax_2100 <= $/tmax/ AND
+      slope >= $/slopeMin/ AND
+      slope <= $/slopeMax/ AND
+      water_distance >= $/waterMin/ AND
+      water_distance <= $/waterMax/ AND
+      urban_distance >= $/urbanMin/ AND
+      urban_distance <= $/urbanMax/ AND
+      arable_distance >= $/arableMin/ AND
+      arable_distance <= $/arableMax/
   `, extractParams(req.query)).then(data => {
-    res.json(getRandom(data[0], 10));
+    const arr = data[0];
+    const random = getRandom(arr, arr.length < 10 ? arr.length : 10);
+    res.json(random);
   }).catch(err => {
     console.log({ err });
     res.json(err);
