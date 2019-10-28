@@ -13,6 +13,7 @@ import numpy
 import pickle
 import json
 
+
 class Resource(object):
 
     def on_post(self, req, resp):
@@ -29,20 +30,16 @@ class Resource(object):
         U_Rect[0,3] = float(json_data["minArableProximity"])
         U_Rect[1,3] = float(json_data["maxArableProximity"])
         U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
-        U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"])
-
-        Fdata = [U_Rect[0,0], U_Rect[1,0]
-        out = {'data': Fdata}
-        resp.body = json.dumps(out)
-        resp.status = falcon.HTTP_200   
+        U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
        
-        #global myglobal
-        #SS = search()
-        #Result = SS.radius_search(myglobal, U_Rect)
+        global myglobal
+        SS = search()
+        Result = SS.radius_search(myglobal, U_Rect)
         
-        #data = {'resultIndices': Result}
-        #resp.body = json.dumps(data)
-        #resp.status = falcon.HTTP_200
+        data = {'resultIndices': Result}
+        resp.body = json.dumps(data)
+        resp.status = falcon.HTTP_200
+
 
 class search(object):
 
