@@ -10,14 +10,6 @@
       "src": "app/package.json",
       "use": "@now/static-build",
       "config": {"distDir": "build"}
-    },
-    {
-      "src": "python_api/python_api/tree_search.py",
-      "use": "@now/python@canary",
-      "config": { 
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.6"
-      }
     }
   ],
   "routes": [
@@ -30,11 +22,6 @@
       "src": "/api",
       "dest": "/api/index.js",
       "methods": ["GET"]
-    },
-    {
-      "src": "/tree_search",
-      "dest": "python_api/python_api/tree_search.py",
-      "methods": ["POST"]
     },
     { "src": "/favicon.ico", "dest": "app/favicon.ico" },
     { "src": "/img/(.*)", "dest": "app/img/$1"},
