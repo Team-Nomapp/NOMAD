@@ -41,12 +41,14 @@ const Tooltip = ({ object, x=30, y=30 }) => {
       <div>
         <Statistic title="latitude" value={convert(object.x)} />
         <Statistic title="longitude" value={convert(object.y)} />
+      </div>
+      <div>
         <Statistic title="max T (C)" value={convert(object.tmax)} />
+        <Statistic title="elevation (m)" value={convert(object.dem)} />
       </div>
       <div>
         <Statistic title="water (km)" value={convert(object.water_distance)} />
         <Statistic title="urban (km)" value={convert(object.urban_distance)} />
-        <Statistic title="arable (km)" value={convert(object.arable_distance)} />
       </div>
     </Container>
   );

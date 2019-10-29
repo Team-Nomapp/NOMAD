@@ -11,7 +11,8 @@ export const MAP_MODES = [
 ];
 
 export const MAP_STYLES = {
-  'light': 'mapbox://styles/mapbox/light-v10?optimize=true'
+  'light': 'mapbox://styles/mapbox/light-v10?optimize=true',
+  'satellite': 'mapbox://styles/mapbox/satellite-v9?optimize=true'
 };
 
 export const ALL_COUNTRIES = {

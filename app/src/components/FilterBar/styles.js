@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Icon } from 'antd';
+import { MAP_STYLES } from 'state/data';
 
 const ABSOLUTE_RIGHT = `
   position: absolute;
@@ -65,6 +66,24 @@ export const A = styled.a`
   color: ${({ selected }) => selected ? '#707070' : '#bdbdbd'};
   &:hover {
     color: #bdbdbd !important;
+    opacity: 1;
+  }
+`;
+
+export const StyleToggle = styled.div`
+  width: 30px;
+  height: 30px;
+  margin: 0px !important;
+  opacity: 0.8;
+  border-radius: 8px;
+  cursor: pointer;
+  background-image: url(${({ mapStyle }) => {
+    return mapStyle === MAP_STYLES.light ? 
+      'https://nomapp.s3.amazonaws.com/satellite.png' : 
+      'https://nomapp.s3.amazonaws.com/light.png';
+  }});
+
+  &:hover {
     opacity: 1;
   }
 `;

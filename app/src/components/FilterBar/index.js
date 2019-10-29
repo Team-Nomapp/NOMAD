@@ -2,9 +2,9 @@ import React from 'react';
 import { Tooltip } from 'antd';
 
 import useContext from 'hooks/useContext';
-import { ALL_YEARS } from 'state/data';
+import { ALL_YEARS, MAP_STYLES } from 'state/data';
 
-import { Bar, I, A } from './styles';
+import { Bar, I, A, StyleToggle } from './styles';
 
 const FilterBar = () => {
   const { 
@@ -14,7 +14,7 @@ const FilterBar = () => {
       year, 
       country, 
       region,
-      map: { mode } 
+      map: { mode, style } 
     }, 
     dispatch 
   } = useContext();
@@ -36,6 +36,12 @@ const FilterBar = () => {
       type: 'UPDATE_REGION',
       payload: null
     });
+
+  const toggleStyle = () =>
+    dispatch({
+      type: 'UPDATE_STYLE',
+      payload: style === MAP_STYLES.light ? MAP_STYLES.satellite : MAP_STYLES.light
+    })
 
   const renderRegional = () => !!region && (
     <>
@@ -86,6 +92,12 @@ const FilterBar = () => {
             { y }
           </A>
         )) }
+      </div>
+      <div>
+        <StyleToggle 
+          mapStyle={ style }
+          onClick={ toggleStyle }
+        />
       </div>
     </>
   );

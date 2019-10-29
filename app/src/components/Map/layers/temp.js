@@ -1,6 +1,6 @@
 import {ScreenGridLayer} from '@deck.gl/aggregation-layers';
 
-const colorRange = [
+export const colorRange = [
   [255, 255, 178, 25],
   [254, 217, 118, 85],
   [254, 178, 76, 127],

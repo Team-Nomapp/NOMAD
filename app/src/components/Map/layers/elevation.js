@@ -1,13 +1,30 @@
 import {PhongMaterial} from '@luma.gl/core';
 import {HexagonLayer} from '@deck.gl/aggregation-layers';
 
-const colorRange = [
-  [1, 152, 189],
-  [73, 227, 206],
-  [216, 254, 181],
-  [254, 237, 177],
-  [254, 173, 84],
-  [209, 55, 78]
+import { groupByPolygons } from '../helpers';
+
+// const colorRange = [
+//   [14,64,111],
+//   [17,94,122],
+//   [21,127,133],
+//   [25,144,125],
+//   [29,154,108],
+//   [29,154,108],
+//   [58,168,107],
+//   [88,182,112],
+//   [118,196,124],
+//   [155,210,148],
+//   [192,223,178],
+//   [222,236,209]
+// ];
+
+export const colorRange = [
+  [255, 255, 178, 160],
+  [254, 217, 118, 160],
+  [254, 178, 76, 160],
+  [253, 141, 60, 160],
+  [240, 59, 32, 160],
+  [189, 0, 38, 160]
 ];
 
 const material = new PhongMaterial({
@@ -37,13 +54,18 @@ export default function _renderLayers(data, { onHover }) {
         Number(d.x), 
         Number(d.y)
       ],
-      // getElevationValue: ([ dem ]) => dem,
+      getColorWeight: d => d.dem,
+      getElevationValue: ([ obj ]) => obj.dem,
       onHover: ({ object, x, y }) => {
-        object && onHover({
-          object: object.points[0],
-          x,
-          y
-        })
+        if (!object) {
+          onHover({});
+        } else {
+          onHover({
+            object: object.points[0],
+            x,
+            y
+          })
+        }
       },
       opacity: 1,
       radius,

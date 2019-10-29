@@ -7,6 +7,7 @@ import { StaticMap } from 'react-map-gl';
 import useContext from 'hooks/useContext';
 import { ALL_COUNTRIES } from 'state/data';
 
+import Legend from './Legend';
 import Tooltip from './Tooltip';
 import lightingEffect from './lighting';
 import { useMode, useLayers } from './hooks';
@@ -46,6 +47,10 @@ const Map = () => {
   useEffect(() => {
     setLoading(false);
   }, [ data ]);
+
+  useEffect(() => {
+    onHover({});
+  }, [ mode ]);
 
   const layers = useLayers(loading, mode, filterMode, {
     data,
@@ -116,6 +121,7 @@ const Map = () => {
       >
         { renderLoading() }
         { renderTooltip() }
+        <Legend region={region} filterMode={filterMode} />
       </StaticMap>
     </DeckGL>
   )

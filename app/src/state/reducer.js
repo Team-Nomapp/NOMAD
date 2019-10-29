@@ -24,6 +24,14 @@ export const initialState = {
 
 export function reducer(state, action) {
   switch (action.type) {
+    case 'UPDATE_STYLE':
+      return {
+        ...state,
+        map: {
+          ...state.map,
+          style: action.payload
+        }
+      }
     case 'UPDATE_COLLAPSED':
       return {
         ...state,
