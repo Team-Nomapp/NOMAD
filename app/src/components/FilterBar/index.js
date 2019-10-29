@@ -57,7 +57,7 @@ const FilterBar = () => {
             title="Temperature Range"
           >
             <I
-              onClick={() => setFilterMode(mode === 'temperature' ? null : 'temperature')}
+              onClick={() => setFilterMode('temperature')}
               selected={ mode === 'temperature' }
               type="heat-map" 
             />
@@ -69,7 +69,7 @@ const FilterBar = () => {
             title="Elevation"
           >
             <I
-              onClick={() => setFilterMode(mode === 'elevation' ? null : 'elevation')}
+              onClick={() => setFilterMode('elevation')}
               selected={ mode === 'elevation' }
               type="radar-chart" 
             />

@@ -17,32 +17,35 @@ const material = new PhongMaterial({
   specularColor: [51, 51, 51]
 });
 
-export default function _renderLayers(data) {
-
+export default function _renderLayers(data, { onHover }) {
   const 
     radius = 500, 
     upperPercentile = 100, 
     coverage = 1;
-
-  const mapped = data.map(d => [
-    Number(d.x), 
-    Number(d.y)
-  ]);
-  
 
   return [
     new HexagonLayer({
       id: 'heatmap',
       colorRange,
       coverage,
-      data: mapped,
-      elevationRange: [0, 500],
-      elevationScale: data && data.length ? 20 : 0,
+      data,
+      elevationRange: [0, 2662],
+      elevationScale: data && data.length ? 10 : 0,
       extruded: true,
-      getPosition: d => d,
-      // onHover: this.props.onHover,
+      pickable: true,
+      getPosition: d => [
+        Number(d.x), 
+        Number(d.y)
+      ],
+      // getElevationValue: ([ dem ]) => dem,
+      onHover: ({ object, x, y }) => {
+        object && onHover({
+          object: object.points[0],
+          x,
+          y
+        })
+      },
       opacity: 1,
-      // pickable: Boolean(this.props.onHover),
       radius,
       upperPercentile,
       material,

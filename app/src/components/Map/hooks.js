@@ -36,11 +36,11 @@ export const useLayers = (
   } else if (mode === 'region') {
     switch (filterMode) {
       case 'elevation':
-        return renderElevation(data);
+        return renderElevation(data, { onHover, onClick });
       case 'temperature':
-        return renderTemperature(data);
+        return renderTemperature(data, { onHover, onClick });
       default:
-        return renderHeatMap(data)
+        return renderHeatMap(data, { onHover, onClick })
     }
   };
   return [];
