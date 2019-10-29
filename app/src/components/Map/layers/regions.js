@@ -1,7 +1,7 @@
 import { IconLayer } from '@deck.gl/layers';
 
 const ICON_MAPPING = {
-  marker: {x: 0, y: 0, width: 128, height: 128, mask: true}
+  marker: {x: 128, y: 0, width: 128, height: 128, mask: true}
 };
 
 export default (data, { onHover, onClick }) => {
@@ -20,7 +20,7 @@ export default (data, { onHover, onClick }) => {
         Number(d.x),
         Number(d.y)
       ],
-      getSize: d => 5,
+      getSize: d => 10,
       getColor: d => [145, 213, 255],
       onHover,
       onClick: onClick('region')
