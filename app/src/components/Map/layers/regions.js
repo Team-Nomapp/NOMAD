@@ -22,13 +22,7 @@ export default (data, { onHover, onClick }) => {
       ],
       getSize: d => 5,
       getColor: d => [145, 213, 255],
-      onHover: ({object, x, y}) => {
-        onHover({
-          hoveredObject: object,
-          pointerX: x,
-          pointerY: y
-        });
-      },
+      onHover,
       onClick: onClick('region')
     })
   ];

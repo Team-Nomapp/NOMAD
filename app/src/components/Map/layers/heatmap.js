@@ -1,33 +1,14 @@
 import {HeatmapLayer} from '@deck.gl/aggregation-layers';
-import {CompositeLayer} from '@deck.gl/core';
-import {IconLayer} from '@deck.gl/layers';
 
-
-const squash = data => {
-  let ret = [];
-  for (let i of data) {
-    const k = ret.find(r => (
-      Math.abs(r.latitude - i.latitude) < 0.1 &&
-      Math.abs(r.longitude - i.longitude) < 0.1
-    ))
-    if (!k) {
-      ret = [ ...ret, i ]
-    }
-  }
-  return ret;
-}
 
 export default function _renderLayers(data) {
   const intensity = 1, threshold = 0.03, radiusPixels = 20;
 
-  console.log({ in: data });
-
   const mapped = data
-    .filter((d, key) => key % 1000 === 0)
     .map(d => [
-      Number(d.y), 
-      Number(d.x),
-      Number(d.dem)
+      Number(d.x), 
+      Number(d.y),
+      Number(d.tmax)
   ]);
 
   return [

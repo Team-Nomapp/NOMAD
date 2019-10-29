@@ -12,24 +12,20 @@ const colorRange = [
 export default function _renderLayers(data) {
   const cellSize = 20, gpuAggregation = true, aggregation = 'Sum';
 
-  const mapped = data
-    // .filter((d, key) => key % 100 === 0)
-    .map(d => [
-      Number(d.x), 
-      Number(d.y),
-      Number(d.tmax)
-  ]);
-
   return [
     new ScreenGridLayer({
       id: 'grid',
-      data: mapped,
-      getPosition: d => [d[0], d[1]],
-      getWeight: d => d[2],
+      data,
+      getPosition: d => [
+        Number(d.x), 
+        Number(d.y)
+      ],
+      getWeight: d => d.tmax,
       cellSizePixels: cellSize,
       colorRange,
       gpuAggregation,
-      aggregation
+      aggregation,
+      pickable: true
     })
   ];
 }

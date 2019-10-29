@@ -60,12 +60,12 @@ const Map = () => {
       }
     }
   });
-
+  
   const locationLayer = country ?
     renderLocation(ALL_COUNTRIES[country].coordinates) : [];
 
   const renderTooltip = () => {
-    return hovered.hoveredObject && <Tooltip {...hovered} />;
+    return hovered.object && <Tooltip {...hovered} />;
   };
 
   const renderLoading = () => {

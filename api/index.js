@@ -138,7 +138,7 @@ app.get('/api/country/region', (req, res) => {
     minLon: lon - kmToLatLng(10)
   }).then(data => {
     const arr = data[0];
-    const ret = getRandom(arr, arr.length < 50 ? arr.length : 50);
+    const ret = getRandom(arr, arr.length < 500 ? arr.length : 500);
     res.json(ret);
   }).catch(err => {
     console.log({ err });
