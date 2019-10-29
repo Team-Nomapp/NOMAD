@@ -18,9 +18,6 @@ const Land = () => {
         {ALL_LANDS.map(({ title, description, value, img }) => (
           <div 
             key={ title }
-            style={{ 
-              opacity: land === value && 1
-            }}
             onClick={() => land === value ? setLand(null) : setLand(value)}
           >
             <div 
@@ -29,14 +26,15 @@ const Land = () => {
                 backgroundImage: `url(${img})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                border: land === value && "5px solid #91d5ff"
               }}
             />
             <Title style={{ 
               fontSize: 12,
               margin: "5px 0"
             }}>
-              <Popover style={{ maxWidth: 200 }} content={(<p>{ description }</p>)}>
+              <Popover content={(<p style={{ maxWidth: 200 }}>{ description }</p>)}>
                 <Icon type="question-circle" style={{ marginRight: 5 }} />
               </Popover>
               { title }

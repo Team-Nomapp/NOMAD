@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import useContext from 'hooks/useContext';
 
 import { Bar, Link } from './styles';
-import logo from '../../images/logo.png';
 
 const Nav = () => {
   const history = useHistory();
@@ -14,7 +13,7 @@ const Nav = () => {
   return collapsed ? null : (
     <Bar>
       <img 
-        src={ logo }
+        src={ "https://nomapp.s3.amazonaws.com/images/logo.png" }
         onClick={() => history.push("/")}
       />
       <Link to="/demo" selected={p === "/demo"}>

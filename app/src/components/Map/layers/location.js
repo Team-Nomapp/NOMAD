@@ -1,6 +1,5 @@
 import { GreatCircleLayer } from 'deck.gl';
 import { IconLayer, TextLayer } from '@deck.gl/layers';
-import icon from '../../../images/map-marker-alt-solid.svg';
 
 const iconMapping = {
   marker: { x: 0, y: 0, width: 32, height: 32, mask: true }

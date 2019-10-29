@@ -15,8 +15,8 @@ import { renderLocation } from './layers';
 
 const controller = { 
   type: MapController,
-  scrollZoom: false,
-  doubleClickZoom: false
+  // scrollZoom: false,
+  // doubleClickZoom: false
 };
 
 const Map = () => {
@@ -25,12 +25,23 @@ const Map = () => {
   const [ loading, setLoading ] = useState(false);
   const { state, dispatch } = useContext();
 
-  const { map: { style, mode: filterMode }, country, region, land, bumpy, temperature, water } = state;
+  const { 
+    map: { style, mode: filterMode }, 
+    country, 
+    region, 
+    land, 
+    bumpy, 
+    temperature, 
+    water,
+    urban,
+    arable,
+    year
+  } = state;
   const [ viewState, mode ] = useMode(country, region);
 
   useEffect(() => {
     country && !loading && fetchData()
-  }, [ country, region, land, bumpy, temperature ]);
+  }, [ country, region, land, bumpy, temperature, water, urban, arable, year ]);
 
   useEffect(() => {
     setLoading(false);
@@ -67,13 +78,17 @@ const Map = () => {
       buildQuery(region), {
       params: {
         ...state,
+        temperature: [
+          state.temperature[0] + 273.15,
+          state.temperature[1] + 273.15
+        ],
         ...(!region ? {} : {
-          latitude: region.latitude,
-          longitude: region.longitude
+          latitude: region.y,
+          longitude: region.x
         })
       }
     }); 
-    const parsed = processData(result.data);
+    const parsed = processData(result.data, year);
     setResults(parsed);
   };
 

@@ -7,14 +7,19 @@ export const defaultViewState = {
   bearing: 0
 };
 
-export const processData = (data) => data.map(i => ({
-  id: i.id,
-  latitude: i.y,
-  longitude: i.x,
-  value: i.slope,
-  tmin: i.tmin_2100,
-  tmax: i.tmax_2100
-}));
+export const processData = (data, year) => {
+  return data.map(i => ({
+    ...i,
+    tmin_2100: i.tmin_2100 - 273.15,
+    tmax_2100: i.tmax_2100 - 273.15,
+    tmin_2050: i.tmin_2050 - 273.15,
+    tmax_2050: i.tmax_2020 - 273.15,
+    tmin_2020: i.tmin_2020 - 273.15,
+    tmax_2020: i.tmax_2020 - 273.15,
+    tmin: i[`tmin_${year}`] - 273.15,
+    tmax: i[`tmax_${year}`] - 273.15
+  }))
+};
 
 export const buildQuery = (region = false) => {
   const url = process.env.NODE_ENV === "development" ?

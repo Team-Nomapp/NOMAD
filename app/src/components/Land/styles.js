@@ -10,7 +10,7 @@ export const LandContainer = styled.div`
     width: 100%;
     margin-bottom: 30px;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 1;
 
     > div.land-card-img {
       width: 100%;
@@ -23,7 +23,9 @@ export const LandContainer = styled.div`
     }
 
     &:hover {
-      opacity: 1;
+      > div.land-card-img {
+        border: 1px solid #91d5ff;
+      }
     }
   }
 `;

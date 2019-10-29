@@ -1,7 +1,7 @@
 import { IconLayer } from '@deck.gl/layers';
 
 const ICON_MAPPING = {
-  marker: {x: 0, y: 0, width: 128, height: 128, mask: false}
+  marker: {x: 0, y: 0, width: 128, height: 128, mask: true}
 };
 
 export default (data, { onHover, onClick }) => {
@@ -17,11 +17,11 @@ export default (data, { onHover, onClick }) => {
       getIcon: d => 'marker',
       sizeScale: 10,
       getPosition: d => [
-        Number(d.longitude),
-        Number(d.latitude)
+        Number(d.x),
+        Number(d.y)
       ],
       getSize: d => 5,
-      getColor: d => [50, 140, 0],
+      getColor: d => [145, 213, 255],
       onHover: ({object, x, y}) => {
         onHover({
           hoveredObject: object,

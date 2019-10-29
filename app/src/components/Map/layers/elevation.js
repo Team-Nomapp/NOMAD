@@ -25,9 +25,9 @@ export default function _renderLayers(data) {
     coverage = 1;
 
   const mapped = data.map(d => [
-    Number(d.longitude), 
-    Number(d.latitude)]
-  );
+    Number(d.x), 
+    Number(d.y)
+  ]);
   
 
   return [

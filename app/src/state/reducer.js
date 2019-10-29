@@ -15,10 +15,11 @@ export const initialState = {
   region: null,
   land: null,
   year: ALL_YEARS[0],
-  bumpy: [0, 50],
-  water: [0, 100],
-  temperature: [295, 303],
-  urban: [0, 100]
+  bumpy: [0, 60],
+  water: [0.4, 174],
+  temperature: [297 - 273.15, 307 - 273.15],
+  urban: [0.4, 170],
+  arable: [0, 185]
 };
 
 export function reducer(state, action) {
@@ -56,6 +57,16 @@ export function reducer(state, action) {
       return { 
         ...state,
         land: action.payload
+      };
+    case 'UPDATE_ARABLE':
+      return { 
+        ...state,
+        arable: action.payload
+      };
+    case 'UPDATE_URBAN':
+      return { 
+        ...state,
+        urban: action.payload
       };
     case 'UPDATE_BUMPY':
       return { 

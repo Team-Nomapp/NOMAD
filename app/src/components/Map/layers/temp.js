@@ -15,8 +15,8 @@ export default function _renderLayers(data) {
   const mapped = data
     // .filter((d, key) => key % 100 === 0)
     .map(d => [
-      Number(d.longitude), 
-      Number(d.latitude),
+      Number(d.x), 
+      Number(d.y),
       Number(d.tmax)
   ]);
 

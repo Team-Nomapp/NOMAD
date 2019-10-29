@@ -19,12 +19,12 @@
       "dest": "app/static/$1"
     },
     {
-      "src": "/test",
+      "src": "/api/country/region",
       "dest": "/api/index.js",
       "methods": ["GET"]
     },
     {
-      "src": "/api",
+      "src": "/api/country",
       "dest": "/api/index.js",
       "methods": ["GET"]
     },
