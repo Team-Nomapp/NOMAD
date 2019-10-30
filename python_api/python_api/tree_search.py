@@ -127,10 +127,7 @@ class search(object):
 
         outside = []
         for arr in inside:
-            outside.append(arr[5]) 
-
-        if (len(outside) >= 10):
-            outside = outside[0:10]       
+            outside.append(arr[5])   
 
         return outside
 
