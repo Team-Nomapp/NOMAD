@@ -21,18 +21,18 @@ function kmToLatLng(km) {
 
 function extractParams(params) {
   return ({
-    land: params.land,
+    land: params.land.toString(),
   
-    tmin: params.temperature[0],
-    tmax: params.temperature[1],
-    slopeMin: params.bumpy[0],
-    slopeMax: params.bumpy[1],
-    arableMin: params.arable[0],
-    arableMax: params.arable[1],
-    waterMin: params.water[0],
-    waterMax: params.water[1],
-    urbanMin: params.urban[0],
-    urbanMax: params.urban[1]
+    tmin: params.temperature[0].toString(),
+    tmax: params.temperature[1].toString(),
+    slopeMin: params.bumpy[0].toString(),
+    slopeMax: params.bumpy[1].toString(),
+    arableMin: params.arable[0].toString(),
+    arableMax: params.arable[1].toString(),
+    waterMin: params.water[0].toString(),
+    waterMax: params.water[1].toString(),
+    urbanMin: params.urban[0].toString(),
+    urbanMax: params.urban[1].toString()
   })
 };
 

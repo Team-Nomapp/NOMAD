@@ -70,7 +70,7 @@ const Range = () => {
         unit="m"
       />
       <Slider 
-        title="Temperature increase per year?"
+        title="Max temperature"
         description="Climate change prediction. (ºC/year)"
         type="TEMPERATURE"
         item="temperature"

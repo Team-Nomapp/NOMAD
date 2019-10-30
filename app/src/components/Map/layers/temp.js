@@ -9,18 +9,18 @@ export const colorRange = [
   [189, 0, 38, 255]
 ];
 
-export default function _renderLayers(data) {
+export default function _renderLayers(show=false, data, year) {
   const cellSize = 20, gpuAggregation = true, aggregation = 'Sum';
 
   return [
     new ScreenGridLayer({
       id: 'grid',
-      data,
+      data: show ? data : [],
       getPosition: d => [
         Number(d.x), 
         Number(d.y)
       ],
-      getWeight: d => d.tmax,
+      getWeight: d => d[`tmax_${year}`],
       cellSizePixels: cellSize,
       colorRange,
       gpuAggregation,

@@ -4,12 +4,12 @@ const ICON_MAPPING = {
   marker: {x: 128, y: 0, width: 128, height: 128, mask: true}
 };
 
-export default (data, { onHover, onClick }) => {
+export default (show, data, { onHover, onClick }) => {
 
-  return [ 
+  return [
     new IconLayer({
       id: 'icon-layer',
-      data,
+      data: show ? data : [],
       billboard: true,
       pickable: true,
       iconAtlas: 'https://deck.gl/images/icon-atlas.png',

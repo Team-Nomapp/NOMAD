@@ -6,7 +6,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
-const { extractTreeParams, kmToLatLng, getRandom } = require('./helpers');
+const { extractTreeParams, extractParams, kmToLatLng, getRandom } = require('./helpers');
 
 const port = process.env.PORT || 4000;
 const app = express();
@@ -29,8 +29,10 @@ app.get('/api/country', (req, res) => {
     db.multi(`
       SELECT * FROM country 
       WHERE 
-        id = ANY($/ids/)
-    `, { ids }).then(data => {
+        id = ANY($/ids/) AND
+        land = $/land/
+      LIMIT 10;
+    `, { ids, land: req.query.land.toString() }).then(data => {
       res.json(data[0]);
     }).catch(err => {
       console.log({ err });
@@ -70,6 +72,7 @@ app.get('/api/country', (req, res) => {
 // });
 
 app.get('/api/country/region', (req, res) => {
+  const { year } = req.query;
   const
     lat = new Number(req.query.latitude),
     lon = new Number(req.query.longitude)
@@ -85,11 +88,10 @@ app.get('/api/country/region', (req, res) => {
     maxLat: lat + kmToLatLng(10),
     minLat: lat - kmToLatLng(10),
     maxLon: lon + kmToLatLng(10),
-    minLon: lon - kmToLatLng(10)
+    minLon: lon - kmToLatLng(10),
+    ...extractParams(req.query)
   }).then(data => {
-    const arr = data[0];
-    const ret = getRandom(arr, arr.length < 500 ? arr.length : 500);
-    res.json(ret);
+    res.json(data[0]);
   }).catch(err => {
     console.log({ err });
   })

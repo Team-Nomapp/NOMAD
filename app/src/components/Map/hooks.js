@@ -8,19 +8,22 @@ export const useMode = (country, region) => {
   } else if (!!country && !region) {
     // available regions mode
     return [{
-      ...defaultViewState,
+      breaing: 0,
       pitch: 30,
+      zoom: 8,
       ...ALL_COUNTRIES[country].coordinates
     }, 'country'];
   } else {
     // specific region mode
-    return [{
-      ...defaultViewState,
+    const regional = [{
+      breaing: 0,
       pitch: 50,
-      longitude: region.longitude,
-      latitude: region.latitude,
+      longitude: region.x,
+      latitude: region.y,
       zoom: 10
     }, 'region'];
+
+    return regional;
   }
 }
 

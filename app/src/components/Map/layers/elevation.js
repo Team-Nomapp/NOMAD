@@ -34,7 +34,7 @@ const material = new PhongMaterial({
   specularColor: [51, 51, 51]
 });
 
-export default function _renderLayers(data, { onHover }) {
+export default function _renderLayers(show=false, data, { onHover }) {
   const 
     radius = 500, 
     upperPercentile = 100, 
@@ -45,7 +45,7 @@ export default function _renderLayers(data, { onHover }) {
       id: 'heatmap',
       colorRange,
       coverage,
-      data,
+      data: show ? data : [],
       elevationRange: [0, 2662],
       elevationScale: data && data.length ? 10 : 0,
       extruded: true,

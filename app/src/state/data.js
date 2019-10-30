@@ -42,7 +42,7 @@ export const ALL_LANDS = [
   },
   {
     title: "Permanent Snow and Ice ",
-    value: 2,
+    value: 3,
     description: ">60% of area is covered by snow and ice for at least 10 months of the year. ",
     img: "https://nomapp.s3.amazonaws.com/images/small/ice-snow.jpg"
   },
