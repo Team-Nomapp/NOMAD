@@ -1,6 +1,20 @@
 # NOMAD
 SpaceApps 2019 Hackathon
 
+Active Demo:        www.nomapp.me
+
+
+Directory Guide:
+
+spatial_tree    ->      .py files for building and searching spatial trees
+python_api      ->      tree search .py files organized for API deployment
+seed            ->      seed files for postgres database
+app             ->      web app build
+api             ->      nodejs api (for serving web app with database)
+
+
+Introduction:
+
 NOMAD integrates NASA satellite data in a searchable format, so that climate
 refugees and nomads can find new homes.
 
@@ -50,5 +64,3 @@ to search through. Compared to linear search of a million points, Nomad searches
 approximately 16,000 times faster. When searching a kd-tree with over a billion
 points, Nomad only takes 50% longer than searching through a kd-tree with a
 million points. 
-
-
