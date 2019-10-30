@@ -24,7 +24,7 @@ export const ALL_COUNTRIES = {
       zoom: 8
     },
     rest: {
-      land: 25,
+      land: 20,
       bumpy: [10, 40],
       water: [10, 60],
       temperature: [295 - 273.15, 303 - 273.15],
