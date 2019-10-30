@@ -127,7 +127,7 @@ class search(object):
 
         outside = []
         for arr in inside:
-            outside.append(arr[5])        
+            outside.append(arr[5])   
 
         return outside
 
