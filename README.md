@@ -1,15 +1,20 @@
 # NOMAD
 SpaceApps 2019 Hackathon
 
+
 Active Demo:        www.nomapp.me
 
 
 Directory Guide:
 
 spatial_tree    ->      .py files for building and searching spatial trees
+
 python_api      ->      tree search .py files organized for API deployment
+
 seed            ->      seed files for postgres database
+
 app             ->      web app build
+
 api             ->      nodejs api (for serving web app with database)
 
 
