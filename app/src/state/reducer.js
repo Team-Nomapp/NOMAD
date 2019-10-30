@@ -12,7 +12,6 @@ export const initialState = {
   },
   collapsed: false,
   country: null,
-  region: null,
   land: null,
   year: ALL_YEARS[0],
   bumpy: [0, 60],
@@ -90,11 +89,6 @@ export function reducer(state, action) {
       return { 
         ...state,
         temperature: action.payload
-      };
-    case 'UPDATE_REGION':
-      return { 
-        ...state,
-        region: action.payload
       };
     case 'UPDATE_URBAN':
       return {

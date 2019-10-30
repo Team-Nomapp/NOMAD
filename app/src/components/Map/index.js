@@ -11,9 +11,9 @@ import { ALL_COUNTRIES } from 'state/data';
 import Legend from './Legend';
 import Tooltip from './Tooltip';
 import lightingEffect from './lighting';
-import { useMode, useLayers } from './hooks';
+import { useMode } from './hooks';
 import { defaultViewState, processData, buildQuery } from './helpers';
-import { renderLocation, renderRegions, renderElevation, renderTemperature, renderHeatMap } from './layers';
+import { renderLocation, renderElevation, renderTemperature } from './layers';
 
 const controller = { 
   type: MapController,
@@ -25,12 +25,11 @@ const Map = () => {
   const [ data, setResults ] = useState([]);
   const [ hovered, onHover ] = useState({});
   const [ loading, setLoading ] = useState(false);
-  const { state, dispatch } = useContext();
+  const { state } = useContext();
 
   const { 
     map: { style, mode: filterMode }, 
     country, 
-    region, 
     land, 
     bumpy, 
     temperature, 
@@ -40,11 +39,11 @@ const Map = () => {
     year
   } = state;
 
-  const [ viewState, mode ] = useMode(country, region);
+  const [ viewState, mode ] = useMode(country);
 
   useEffect(() => {
     country && !loading && fetchData()
-  }, [ country, region, land, bumpy, temperature, water, urban, arable, year ]);
+  }, [ country, land, bumpy, temperature, water, urban, arable, year ]);
 
   useEffect(() => {
     setLoading(false);
@@ -64,16 +63,6 @@ const Map = () => {
     onHover({});
   }, [ mode ]);
 
-  const onClick = type => ({ object }) => {
-    onHover({});
-    if (type === 'region') {
-      dispatch({
-        type: 'UPDATE_REGION', 
-        payload: object
-      });
-    }
-  };
-  
   const locationLayer = country ?
     renderLocation(ALL_COUNTRIES[country].coordinates) : [];
 
@@ -88,17 +77,13 @@ const Map = () => {
   const fetchData = async () => {
     setLoading(true);
     const result = await axios.get(
-      buildQuery(region), {
+      buildQuery(), {
       params: {
         ...state,
         temperature: [
           state.temperature[0] + 273.15,
           state.temperature[1] + 273.15
-        ],
-        ...(!region ? {} : {
-          latitude: region.y,
-          longitude: region.x
-        })
+        ]
       }
     }); 
     const parsed = processData(result.data, year);
@@ -117,9 +102,8 @@ const Map = () => {
       controller={controller}
       layers={ [
         ...locationLayer, 
-        renderRegions(mode === 'country', data, { onClick, onHover }), 
-        renderElevation(mode === 'region' && filterMode === 'elevation', data, { onHover }), 
-        renderTemperature(mode === 'region' && filterMode === 'temperature', data, year),
+        renderElevation(mode === 'country' && filterMode === 'elevation', data, { onHover }), 
+        renderTemperature(mode === 'country' && filterMode === 'temperature', data, year),
       ] }
     >
       <StaticMap 
@@ -131,7 +115,7 @@ const Map = () => {
       >
         { renderLoading() }
         { renderTooltip() }
-        <Legend region={region} filterMode={filterMode} />
+        <Legend country={country} filterMode={filterMode} />
       </StaticMap>
     </DeckGL>
   )

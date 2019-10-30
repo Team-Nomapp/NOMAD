@@ -13,7 +13,6 @@ const FilterBar = () => {
       window: { isMobile }, 
       year, 
       country, 
-      region,
       map: { mode, style } 
     }, 
     dispatch 
@@ -31,31 +30,14 @@ const FilterBar = () => {
       payload: !collapsed
     });
 
-  const zoomOut = () =>
-    dispatch({
-      type: 'UPDATE_REGION',
-      payload: null
-    });
-
   const toggleStyle = () =>
     dispatch({
       type: 'UPDATE_STYLE',
       payload: style === MAP_STYLES.light ? MAP_STYLES.satellite : MAP_STYLES.light
     })
 
-  const renderRegional = () => !!region && (
+  const renderRegional = () => !!country && (
     <>
-      <div>
-        <Tooltip
-          placement="left" 
-          title="Zoom Out"
-        >
-          <I
-            onClick={ zoomOut }
-            type="arrows-alt" 
-          />
-        </Tooltip>
-      </div>
       <div>
         <div>
           <Tooltip

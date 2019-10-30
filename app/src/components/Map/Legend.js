@@ -54,8 +54,8 @@ const Color = styled.div`
   min-height: 15px;
 `;
 
-const Legend = ({ region, filterMode }) => {
-  if (!region) return null;
+const Legend = ({ country, filterMode }) => {
+  if (!country) return null;
 
   if (filterMode === 'temperature') {
     return (

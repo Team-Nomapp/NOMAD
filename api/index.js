@@ -31,8 +31,8 @@ app.get('/api/country', (req, res) => {
       WHERE 
         id = ANY($/ids/) AND
         land = $/land/
-      LIMIT 10;
     `, { ids, land: req.query.land.toString() }).then(data => {
+      // now query surrounding data
       res.json(data[0]);
     }).catch(err => {
       console.log({ err });
@@ -71,31 +71,31 @@ app.get('/api/country', (req, res) => {
 //   })
 // });
 
-app.get('/api/country/region', (req, res) => {
-  const { year } = req.query;
-  const
-    lat = new Number(req.query.latitude),
-    lon = new Number(req.query.longitude)
+// app.get('/api/country/region', (req, res) => {
+//   const { year } = req.query;
+//   const
+//     lat = new Number(req.query.latitude),
+//     lon = new Number(req.query.longitude)
 
-  db.multi(`
-    SELECT * FROM country 
-    WHERE
-      y < $/maxLat/ AND 
-      y > $/minLat/ AND
-      x < $/maxLon/ AND 
-      x > $/minLon/
-  `, {
-    maxLat: lat + kmToLatLng(10),
-    minLat: lat - kmToLatLng(10),
-    maxLon: lon + kmToLatLng(10),
-    minLon: lon - kmToLatLng(10),
-    ...extractParams(req.query)
-  }).then(data => {
-    res.json(data[0]);
-  }).catch(err => {
-    console.log({ err });
-  })
-});
+//   db.multi(`
+//     SELECT * FROM country 
+//     WHERE
+//       y < $/maxLat/ AND 
+//       y > $/minLat/ AND
+//       x < $/maxLon/ AND 
+//       x > $/minLon/
+//   `, {
+//     maxLat: lat + kmToLatLng(10),
+//     minLat: lat - kmToLatLng(10),
+//     maxLon: lon + kmToLatLng(10),
+//     minLon: lon - kmToLatLng(10),
+//     ...extractParams(req.query)
+//   }).then(data => {
+//     res.json(data[0]);
+//   }).catch(err => {
+//     console.log({ err });
+//   })
+// });
 
 app.listen(port, err => {
   if (err) throw err;

@@ -19,11 +19,6 @@
       "dest": "app/static/$1"
     },
     {
-      "src": "/api/country/region",
-      "dest": "/api/index.js",
-      "methods": ["GET"]
-    },
-    {
       "src": "/api/country",
       "dest": "/api/index.js",
       "methods": ["GET"]
