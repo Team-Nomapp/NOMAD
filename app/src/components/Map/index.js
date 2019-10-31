@@ -6,24 +6,23 @@ import { StaticMap } from 'react-map-gl';
 import { Icon, notification } from 'antd';
 
 import useContext from 'hooks/useContext';
-import { ALL_COUNTRIES } from 'state/data';
 
 import Legend from './Legend';
 import Tooltip from './Tooltip';
+import UserTooltip from './UserTooltip';
 import lightingEffect from './lighting';
 import { useMode } from './hooks';
 import { defaultViewState, processData, buildQuery } from './helpers';
-import { renderElevation, renderTemperature } from './layers';
+import { renderLocation, renderElevation, renderTemperature } from './layers';
 
 const controller = { 
-  type: MapController,
-  // scrollZoom: false,
-  // doubleClickZoom: false
+  type: MapController
 };
 
 const Map = () => {
   const [ data, setResults ] = useState([]);
   const [ hovered, onHover ] = useState({});
+  const [ userHover, onUserHover ] = useState(false);
   const [ loading, setLoading ] = useState(false);
   const { state } = useContext();
 
@@ -83,7 +82,7 @@ const Map = () => {
         ]
       }
     }); 
-    const parsed = processData(result.data, year);
+    const parsed = processData(result.data, year)
     setResults(parsed);
   };
 
@@ -98,6 +97,7 @@ const Map = () => {
       } }
       controller={controller}
       layers={ [
+        renderLocation(country, onUserHover),
         renderElevation(mode === 'country' && filterMode === 'elevation', data, { onHover }), 
         renderTemperature(mode === 'country' && filterMode === 'temperature', data, year),
       ] }
@@ -111,6 +111,7 @@ const Map = () => {
       >
         { renderLoading() }
         { renderTooltip() }
+        <UserTooltip userHover={userHover} />
         <Legend country={country} filterMode={filterMode} />
       </StaticMap>
     </DeckGL>
