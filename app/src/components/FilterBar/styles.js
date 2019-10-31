@@ -19,7 +19,7 @@ const BLOCK = `
 
 export const Bar = styled.div`
   ${ABSOLUTE_RIGHT}
-  top: 20px;
+  top: 0;
 
   > div {
     ${ BLOCK }

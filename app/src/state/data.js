@@ -19,8 +19,8 @@ export const ALL_COUNTRIES = {
   burundi: { 
     label: 'Burundi', 
     coordinates: {
-      longitude: 29.9189,
-      latitude: -3.3731,
+      longitude: 29.2, //29.9189,
+      latitude: -3.7,
       zoom: 8
     },
     rest: {

@@ -9,6 +9,7 @@ export const useMode = (country) => {
       breaing: 0,
       pitch: 30,
       zoom: 8,
+      offset: -300,
       ...ALL_COUNTRIES[country].coordinates
     }, 'country'];
   }

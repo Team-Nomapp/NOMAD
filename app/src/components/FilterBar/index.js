@@ -87,17 +87,14 @@ const FilterBar = () => {
   return (
     <>
       <Bar>
-        { isMobile && (
+        <div>
           <div>
-            <div>
-              <I
-                onClick={setCollapsed}
-                type={ collapsed ? "menu-unfold" : "menu-fold" } 
-              />
-            </div>
+            <I
+              onClick={setCollapsed}
+              type={ collapsed ? "menu-unfold" : "menu-fold" } 
+            />
           </div>
-        ) }
-
+        </div>
         { renderRegional() }
       </Bar>
     </>

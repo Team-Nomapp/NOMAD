@@ -13,7 +13,7 @@ import Tooltip from './Tooltip';
 import lightingEffect from './lighting';
 import { useMode } from './hooks';
 import { defaultViewState, processData, buildQuery } from './helpers';
-import { renderLocation, renderElevation, renderTemperature } from './layers';
+import { renderElevation, renderTemperature } from './layers';
 
 const controller = { 
   type: MapController,
@@ -63,9 +63,6 @@ const Map = () => {
     onHover({});
   }, [ mode ]);
 
-  const locationLayer = country ?
-    renderLocation(ALL_COUNTRIES[country].coordinates) : [];
-
   const renderTooltip = () => {
     return hovered.object && <Tooltip {...hovered} />;
   };
@@ -101,7 +98,6 @@ const Map = () => {
       } }
       controller={controller}
       layers={ [
-        ...locationLayer, 
         renderElevation(mode === 'country' && filterMode === 'elevation', data, { onHover }), 
         renderTemperature(mode === 'country' && filterMode === 'temperature', data, year),
       ] }

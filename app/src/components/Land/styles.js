@@ -5,6 +5,7 @@ export const LandContainer = styled.div`
   height: 500px;
   width: 100%;
   margin-top: 100px;
+  padding-bottom: 50px;
 
   > div {
     width: 100%;

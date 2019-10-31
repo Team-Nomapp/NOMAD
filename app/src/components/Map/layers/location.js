@@ -1,70 +1,75 @@
-import { GreatCircleLayer } from 'deck.gl';
-import { IconLayer, TextLayer } from '@deck.gl/layers';
+// import { ALL_COUNTRIES } from 'state/data';
+// import { IconLayer, TextLayer } from '@deck.gl/layers';
 
-const iconMapping = {
-  marker: { x: 0, y: 0, width: 32, height: 32, mask: true }
-};
+// const iconMapping = {
+//   marker: { x: 0, y: 0, width: 128, height: 128, mask: true }
+// };
 
-export default function _renderLayers({ latitude, longitude }) {
-  const data = [
-    {
-      from: {
-        coordinates: [
-          Number(longitude),
-          Number(latitude)
-        ]
-      },
-      to: {
-        coordinates: [
-          Number(latitude),
-          Number(longitude)
-        ]
-      }
-    }
-  ]
-  return [
-    new IconLayer({
-      data: [[
-        Number(longitude), 
-        Number(latitude)
-      ]],
-      pickable: true,
-      wrapLongitude: true,
-      getPosition: d => d,
-      iconAtlas: 'https://deck.gl/images/icon-atlas.png',
-      iconMapping,
-      // onHover: this._onHover,
-      id: 'icon',
-      getIcon: d => 'marker',
-      getSize: d => 5,
-      sizeUnits: 'meters',
-      sizeScale: 15,
-      sizeMinPixels: 6
-    }),
-    // new GreatCircleLayer({
-    //   id: 'great-circle-layer',
-    //   data,
-    //   pickable: true,
-    //   getStrokeWidth: 12,
-    //   getSourcePosition: d => d.from.coordinates,
-    //   getTargetPosition: d => d.to.coordinates,
-    //   getSourceColor: [64, 255, 0],
-    //   getTargetColor: [0, 128, 200],
-    //   // onHover: ({object, x, y}) => {
-    //   //   const tooltip = `${object.from.name} to ${object.to.name}`;
-    //   // }
-    // }),
-    // new TextLayer({
-    //   id: 'you-are-here',
-    //   data: [],
-    //   getText: d => "You are here",
-    //   getPosition: x => [
-    //     Number(longitude), 
-    //     Number(latitude)
-    //   ],
-    //   getColor: d => [29, 145, 192],
-    //   getSize: d => 50,
-    //   sizeScale: 32 / 20
-    // })
-  ];
-}
+// export default function _renderLayers(country) {
+  
+//   const data = !country ? [] : [ALL_COUNTRIES[country]];
+//   console.log({ data });
+//   return [
+//     // new IconLayer({
+//     //   data,
+//     //   pickable: true,
+//     //   wrapLongitude: true,
+//     //   billboard: true,
+//     //   getPosition: d => [
+//     //     new Number(d.coordinates.latitude),
+//     //     new Number(d.coordinates.longitude)
+//     //   ],
+//     //   iconAtlas: 'https://deck.gl/images/icon-atlas.png',
+//     //   iconMapping,
+//     //   // onHover: this._onHover,
+//     //   id: 'icon',
+//     //   getIcon: d => 'marker',
+//     //   getColor: d => [145, 213, 255],
+//     //   getSize: d => 10,
+//     //   sizeUnits: 'meters',
+//     //   sizeScale: 10
+//     // }),
+//     // new TextLayer({
+//     //   id: 'you-are-here',
+//     //   data,
+//     //   getText: d => "You are here",
+//     //   getPosition: d => [
+//     //     new Number(d.coordinates.latitude),
+//     //     new Number(d.coordinates.longitude)
+//     //   ],
+//     //   getColor: d => [29, 145, 192],
+//     //   getSize: d => 10,
+//     //   sizeScale: 1
+//     // })
+//   ];
+// }
+
+
+
+// // const ICON_MAPPING = {
+// //   marker: {x: 128, y: 0, width: 128, height: 128, mask: true}
+// // };
+
+// // export default (show, data, { onHover, onClick }) => {
+
+// //   return [
+// //     new IconLayer({
+// //       id: 'icon-layer',
+// //       data: show ? data : [],
+// //       billboard: true,
+// //       pickable: true,
+// //       iconAtlas: 'https://deck.gl/images/icon-atlas.png',
+// //       iconMapping: ICON_MAPPING,
+// //       getIcon: d => 'marker',
+// //       sizeScale: 10,
+// //       getPosition: d => [
+// //         Number(d.x),
+// //         Number(d.y)
+// //       ],
+// //       getSize: d => 10,
+// //       getColor: d => [145, 213, 255],
+// //       onHover,
+// //       onClick: onClick('region')
+// //     })
+// //   ];
+// // };

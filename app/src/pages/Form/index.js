@@ -15,11 +15,11 @@ function FormPage() {
 
   return (
     <Row collapsed={collapsed} isMobile={isMobile}>
-      <Col style={{ left: 0 }}>
+      <Col>
         <FilterBar />
         <Form />
       </Col>
-      <Col style={{ right: 0 }}>
+      <Col>
         <Map />
       </Col>
     </Row>
