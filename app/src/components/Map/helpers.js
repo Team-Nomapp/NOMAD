@@ -1,3 +1,5 @@
+import React from 'react';
+import { notification, Icon } from 'antd';
 
 export const defaultViewState = {
   latitude: 0,
@@ -28,42 +30,51 @@ export const buildQuery = () => {
   return url + "/country";
 };
 
-export const groupByPolygons = data => {
+export const groupByRegions = data => {
   let ret = [];
   for (let i of data) {
     // check if similar to previous
     const prev = ret.length === 0 ? undefined : ret[ret.length - 1];
     const x = new Number(i.x);
     const y = new Number(i.y);
-    const dem = new Number(i.dem);
 
-    const similarToPrevious = ret.length === 0 ? false : prev.geometry.coordinates.length < 6;
+    const similarToPrevious = !prev ? false : arePointsNear(
+      { x: prev.avgX, y:prev.avgY },
+      i,
+      40
+    );
 
     if (similarToPrevious) {
-      const sumDem = items => {
-        const keys = Object.keys(items);
-        return keys.reduce((acc, cur) => acc + items[cur].dem, 0)
+      const summer = items => {
+        return items.reduce((acc, cur) => {
+          return {
+            x: acc.x ? acc.x + cur.x : cur.x,
+            y: acc.y ? acc.y + cur.y : cur.y
+          }
+        }, {})
       }
 
+      const sum = summer([...prev.geometry, { x, y }]);
+      const len = prev.geometry.length + 1;
+
       ret[ret.length - 1] = {
-        ...prev,
-        properties: {
-          dem: (dem + sumDem(prev.properties.items)) / (prev.geometry.coordinates.length + 1),
-          items: {
-            ...prev.properties.items, [ i.id ]: i
-          }
+        avgX: sum.x / len,
+        avgY: sum.y / len,
+        items: {
+          ...prev.items, 
+          [ i.id ]: i
         },
-        geometry: {
-          ...prev.geometry,
-          coordinates: [ ...prev.geometry.coordinates, [ x, y ] ]
-        }
+        geometry: [ ...prev.geometry, { x, y } ]
       }
     } else {
-      ret = [ ...ret, {
-        type: "Feature",
-        properties: { dem, items: { [ i.id ]: i } },
-        geometry: { type: "Polygon", coordinates: [[ x, y ]] }
-       } 
+      ret = [ 
+        ...ret, 
+        {
+          avgX: x,
+          avgY: y,
+          items: { [ i.id ]: i },
+          geometry: [{ x, y }]
+        }
       ]
     }
   }
@@ -71,25 +82,60 @@ export const groupByPolygons = data => {
   return ret;
 }
 
-// {
-//   "type": "Feature",
-//   "geometry": { 
-//     "type":"Polygon",
-//     "coordinates":[
-//       [
-//         [-123.0249569,49.2407190],
-//         [-123.0241582,49.2407165],
-//         [-123.0240445,49.2406847],
-//         [-123.0239311,49.2407159],
-//         [-123.0238530,49.2407157],
-//         [-123.0238536,49.2404548],
-//         [-123.0249568,49.2404582],
-//         [-123.0249569,49.2407190]
-//       ]
-//     ]
-//   },
-//   "properties":{
-//     "valuePerSqm":4563,
-//     "growth":0.3592
-//   }
-// }
+export const arePointsNear = (checkPoint, centerPoint, km) => {
+  var ky = 40000 / 360;
+  var kx = Math.cos(Math.PI * centerPoint.x / 180.0) * ky;
+  var dx = Math.abs(centerPoint.y - checkPoint.y) * kx;
+  var dy = Math.abs(centerPoint.x - checkPoint.x) * ky;
+  return Math.sqrt(dx * dx + dy * dy) <= km;
+}
+
+export const createNotification = (doCreate=false) => {
+  if (!doCreate) return;
+  notification.open({
+    message: 'Warning',
+    description:
+      'There are no results for these settings.',
+    duration: 0,
+    icon: <Icon type="warning" theme="twoTone" />
+  });
+}
+
+export const getWikiData = (data, setWiki) => {
+  const WIKI_URL = 'https://en.wikipedia.org/w/api.php?';
+  const QUERY = 'action=query&origin=*';
+  const getWiki = async ({ x, y }) => {
+    const NEARBY_URL = 
+      WIKI_URL + 
+      QUERY + 
+      `&prop=coordinates|pageimages|description|info` +
+      `&inprop=url` +
+      `&pithumbsize=144` +
+      `&generator=geosearch` +
+      `&ggsradius=10000` +
+      `&ggslimit=100` +
+      `&ggscoord=${y}|${x}` +
+      `&format=json`;
+    const response = await fetch(NEARBY_URL)
+    const json = await response.json();
+    return json;
+  }
+
+  if (data.length > 0) {
+    setTimeout(async () => {
+      const grouped = groupByRegions(data);
+      let wikiData = [];
+      for (let g in grouped) {
+        const group = grouped[g];
+        const wiki = await getWiki({ x: group.avgX, y: group.avgY });
+        if (wiki.query) {
+          wikiData = [ 
+            ...wikiData, 
+            ...Object.values(wiki.query.pages).slice(0, 5)
+          ]
+        }
+      }
+      setWiki(wikiData);
+    }, 0);
+  }
+}

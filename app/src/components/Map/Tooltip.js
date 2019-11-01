@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Statistic } from 'antd';
+import { useNearbyPlace } from 'hooks/useWikipedia';
 
 const Container = styled.div`
   position: absolute;
@@ -32,6 +33,7 @@ const Container = styled.div`
 const convert = val => (new Number(val)).toFixed(2);
 
 const Tooltip = ({ object, x=30, y=30 }) => {
+  const place = useNearbyPlace(object);
   
   return (
     <Container 

@@ -25,7 +25,7 @@ export default function _renderLayers(country, onHover) {
   
   return [
     new ColumnLayer({
-      id: 'column-layer',
+      id: 'column-layer-2',
       data,
       diskResolution: 12,
       radius: 2000,
