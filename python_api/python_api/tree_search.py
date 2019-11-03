@@ -28,25 +28,41 @@ class Resource(object):
 	def on_post(self, req, resp):
 		json_data = json.loads(req.stream.read())
 
-		U_Rect = numpy.zeros((2,5))
-		U_Rect[0,0] = float(json_data["minElevationDistribution"])
-		U_Rect[1,0] = float(json_data["maxElevationDistribution"])
-		U_Rect[0,1] = float(json_data["minFreshWaterProximity"])
-		U_Rect[1,1] = float(json_data["maxFreshWaterProximity"])
-		U_Rect[0,2] = float(json_data["minUrbanProximity"])
-		U_Rect[1,2] = float(json_data["maxUrbanProximity"])
-		U_Rect[0,3] = float(json_data["minArableProximity"])
-		U_Rect[1,3] = float(json_data["maxArableProximity"])
-		U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
-		U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
+		# U_Rect = numpy.zeros((2,5))
+		# U_Rect[0,0] = float(json_data["minElevationDistribution"])
+		# U_Rect[1,0] = float(json_data["maxElevationDistribution"])
+		# U_Rect[0,1] = float(json_data["minFreshWaterProximity"])
+		# U_Rect[1,1] = float(json_data["maxFreshWaterProximity"])
+		# U_Rect[0,2] = float(json_data["minUrbanProximity"])
+		# U_Rect[1,2] = float(json_data["maxUrbanProximity"])
+		# U_Rect[0,3] = float(json_data["minArableProximity"])
+		# U_Rect[1,3] = float(json_data["maxArableProximity"])
+		# U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
+		# U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
 
-		global myglobal
-		SS = search()
-		Result = SS.radius_search(myglobal, U_Rect)
+		# global myglobal
+		# SS = search()
+		# Result = SS.radius_search(myglobal, U_Rect)
+
+		# query = self.session.query(Country)\
+		# 	.filter(
+        #         Country.land == int(json_data["land"]),\
+        #         Country.id.in_(Result),\
+        #     )\
+		# 	.all()
 
 		query = self.session.query(Country)\
 			.filter(Country.land == int(json_data["land"]))\
-			.filter(Country.id.in_(Result))\
+			.filter(Country.slope >= float(json_data["minElevationDistribution"]))\
+			.filter(Country.slope <= float(json_data["maxElevationDistribution"]))\
+			.filter(Country.tmin_2020 >= float(json_data["minPredictedTempIncrease"]))\
+			.filter(Country.tmax_2020 <= float(json_data["maxPredictedTempIncrease"]))\
+			.filter(Country.water_distance >= float(json_data["minFreshWaterProximity"]))\
+			.filter(Country.water_distance <= float(json_data["maxFreshWaterProximity"]))\
+			.filter(Country.urban_distance >= float(json_data["minUrbanProximity"]))\
+			.filter(Country.urban_distance <= float(json_data["maxUrbanProximity"]))\
+			.filter(Country.arable_distance >= float(json_data["minArableProximity"]))\
+			.filter(Country.arable_distance <= float(json_data["maxArableProximity"]))\
 			.all()
 
 		arr = []
@@ -76,93 +92,90 @@ class Resource(object):
 class search(object):
 
 
-    def depickle(self):
+	def depickle(self):
 
-        """
-        Take pickled spatial tree file from local directory and turn back to
-        list of tuples
+		"""
+		Take pickled spatial tree file from local directory and turn back to
+		list of tuples
 
-        """
+		"""
 
-        file_name = "python_api/Final_Pickle"
-        file_object = open(file_name, 'rb')
-        FTrees = pickle.load(file_object)
+		file_name = "python_api/Final_Pickle"
+		file_object = open(file_name, 'rb')
+		FTrees = pickle.load(file_object)
 
-        return FTrees
-
-
-    def intersect_rects(self, user_hrect, branch_hrect):
-
-        """    
-        Check if bounds from user-defined hypercube
-        are contained inside current branch's hyper-rectangle
-
-        """
-
-        if ((user_hrect[0, 0] < branch_hrect[1, 0]) and (user_hrect[1, 0] > branch_hrect[0, 0])) and \
-                ((user_hrect[0, 1] < branch_hrect[1, 1]) and (user_hrect[1, 1] > branch_hrect[0, 1])) and \
-                ((user_hrect[0, 2] < branch_hrect[1, 2]) and (user_hrect[1, 2] > branch_hrect[0, 2])) and \
-                ((user_hrect[0, 3] < branch_hrect[1, 3]) and (user_hrect[1, 3] > branch_hrect[0, 3])) and \
-                ((user_hrect[0, 4] < branch_hrect[1, 4]) and (user_hrect[1, 4] > branch_hrect[0, 4])):
-
-            return True
-        else:
-            return False
+		return FTrees
 
 
-    def intersect_rect_point(self, point, hrect):
+	def intersect_rects(self, user_hrect, branch_hrect):
 
-        """
-        Check if a point is contained inside a hyper-rectangle
+		"""    
+		Check if bounds from user-defined hypercube
+		are contained inside current branch's hyper-rectangle
 
-        """
+		"""
 
-        if (((point[0] < hrect[1,0]) and (point[0] > hrect[0,0])) and ((point[1] < hrect[1,1]) and (point[1] > hrect[0,1]))
-            and ((point[2] < hrect[1,2]) and (point[2] > hrect[0,2])) and ((point[3] < hrect[1,3]) and (point[3] > hrect[0,3])) and ((point[4] < hrect[1,4]) and (point[4] > hrect[0,4]))):
+		if ((user_hrect[0, 0] < branch_hrect[1, 0]) and (user_hrect[1, 0] > branch_hrect[0, 0])) and \
+						((user_hrect[0, 1] < branch_hrect[1, 1]) and (user_hrect[1, 1] > branch_hrect[0, 1])) and \
+						((user_hrect[0, 2] < branch_hrect[1, 2]) and (user_hrect[1, 2] > branch_hrect[0, 2])) and \
+						((user_hrect[0, 3] < branch_hrect[1, 3]) and (user_hrect[1, 3] > branch_hrect[0, 3])) and \
+						((user_hrect[0, 4] < branch_hrect[1, 4]) and (user_hrect[1, 4] > branch_hrect[0, 4])):
 
-            return True
-
-        else:
-
-            return False
+			return True
+		else:
+			return False
 
 
-    def radius_search(self, tree, input_rect):
+	def intersect_rect_point(self, point, hrect):
 
-        """
-        find all points within user-defined hyper-rectangle, return list of 
-        matching point ID's
+		"""
+		Check if a point is contained inside a hyper-rectangle
 
-        """
-        stack = [tree[0]]
-        inside = []
-        while stack:
+		"""
 
-            leaf_idx, leaf_data, left_hrect, \
-                      right_hrect, left, right = stack.pop()
+		if (((point[0] < hrect[1,0]) and (point[0] > hrect[0,0])) and ((point[1] < hrect[1,1]) and (point[1] > hrect[0,1]))
+			and ((point[2] < hrect[1,2]) and (point[2] > hrect[0,2])) and ((point[3] < hrect[1,3]) and (point[3] > hrect[0,3])) and ((point[4] < hrect[1,4]) and (point[4] > hrect[0,4]))):
+			return True
+		else:
+			return False
 
-            # leaf
-            if leaf_idx is not None:
-                count = 0
-                Num_Points = leaf_data.shape[1]
-                for count in range(Num_Points):
-                    Current_Point = leaf_data[:,count]
-                    if self.intersect_rect_point(Current_Point, input_rect):
-                        inside.append(Current_Point)
 
-            else:
+	def radius_search(self, tree, input_rect):
 
-                if self.intersect_rects(input_rect,left_hrect):
-                    stack.append(tree[left])
+		"""
+		find all points within user-defined hyper-rectangle, return list of 
+		matching point ID's
 
-                if self.intersect_rects(input_rect,right_hrect):
-                    stack.append(tree[right])
+		"""
+		stack = [tree[0]]
+		inside = []
+		while stack:
 
-        outside = []
-        for arr in inside:
-            outside.append(arr[5])   
+			leaf_idx, leaf_data, left_hrect, \
+				right_hrect, left, right = stack.pop()
 
-        return outside
+			# leaf
+			if leaf_idx is not None:
+				count = 0
+				Num_Points = leaf_data.shape[1]
+				for count in range(Num_Points):
+					Current_Point = leaf_data[:,count]
+					if self.intersect_rect_point(Current_Point, input_rect):
+						inside.append(Current_Point)
+
+			else:
+
+				if self.intersect_rects(input_rect,left_hrect):
+					stack.append(tree[left])
+
+				if self.intersect_rects(input_rect,right_hrect):
+					stack.append(tree[right])
+
+		outside = []
+		for arr in inside:
+			outside.append(arr[5])   
+
+		return outside
 
 
 engine = create_engine("postgres://crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu")
