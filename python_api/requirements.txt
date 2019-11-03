@@ -2,3 +2,4 @@ falcon
 numpy
 gunicorn
 falcon_cors
+sqlalchemy
