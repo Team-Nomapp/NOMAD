@@ -56,8 +56,8 @@ const Range = () => {
         description="Proximity to water bodies: rivers, lakes, mangrove swamps, sea…"
         type="WATER"
         item="water"
-        max={174}
-        min={0.4}
+        max={205}
+        min={0}
         unit="km"
       />
       <Slider 
@@ -65,7 +65,7 @@ const Range = () => {
         description="Elevation distribution. Smaller numbers mean flatter terrains, larger numbers irregular terrains."
         type="BUMPY"
         item="bumpy"
-        max={60}
+        max={63}
         min={0}
         unit="m"
       />
@@ -83,8 +83,8 @@ const Range = () => {
         description="Distance to the nearest city (km)"
         type="URBAN"
         item="urban"
-        max={170}
-        min={0.4}
+        max={130}
+        min={0}
         unit="km"
       />
       <Slider 
@@ -92,7 +92,7 @@ const Range = () => {
         description="Distance to the arable land (km)"
         type="ARABLE"
         item="arable"
-        max={187}
+        max={92}
         min={0}
         unit="km"
       />

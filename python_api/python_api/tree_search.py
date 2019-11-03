@@ -8,36 +8,69 @@ CopyLeft 2019 Gavin Dove
 """
 
 import falcon
+from falcon.http_status import HTTPStatus
 import numpy
 import pickle
 import json
+from .db.models import *
 
+class HandleCORS(object):
+	def process_request(self, req, resp):
+		resp.set_header('Access-Control-Allow-Origin', '*')
+		resp.set_header('Access-Control-Allow-Methods', '*')
+		resp.set_header('Access-Control-Allow-Headers', '*')
+		resp.set_header('Access-Control-Max-Age', 1728000)  # 20 days
+		if req.method == 'OPTIONS':
+			raise HTTPStatus(falcon.HTTP_200, body='\n')
 
 class Resource(object):
 
-    def on_post(self, req, resp):
+	def on_post(self, req, resp):
+		json_data = json.loads(req.stream.read())
 
-        json_data = json.loads(req.stream.read())
+		U_Rect = numpy.zeros((2,5))
+		U_Rect[0,0] = float(json_data["minElevationDistribution"])
+		U_Rect[1,0] = float(json_data["maxElevationDistribution"])
+		U_Rect[0,1] = float(json_data["minFreshWaterProximity"])
+		U_Rect[1,1] = float(json_data["maxFreshWaterProximity"])
+		U_Rect[0,2] = float(json_data["minUrbanProximity"])
+		U_Rect[1,2] = float(json_data["maxUrbanProximity"])
+		U_Rect[0,3] = float(json_data["minArableProximity"])
+		U_Rect[1,3] = float(json_data["maxArableProximity"])
+		U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
+		U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
 
-        U_Rect = numpy.zeros((2,5))
-        U_Rect[0,0] = float(json_data["minElevationDistribution"])
-        U_Rect[1,0] = float(json_data["maxElevationDistribution"])
-        U_Rect[0,1] = float(json_data["minFreshWaterProximity"])
-        U_Rect[1,1] = float(json_data["maxFreshWaterProximity"])
-        U_Rect[0,2] = float(json_data["minUrbanProximity"])
-        U_Rect[1,2] = float(json_data["maxUrbanProximity"])
-        U_Rect[0,3] = float(json_data["minArableProximity"])
-        U_Rect[1,3] = float(json_data["maxArableProximity"])
-        U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
-        U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
-       
-        global myglobal
-        SS = search()
-        Result = SS.radius_search(myglobal, U_Rect)
-        
-        data = {'resultIndices': Result}
-        resp.body = json.dumps(data)
-        resp.status = falcon.HTTP_200
+		global myglobal
+		SS = search()
+		Result = SS.radius_search(myglobal, U_Rect)
+
+		query = self.session.query(Country)\
+			.filter(Country.land == int(json_data["land"]))\
+			.filter(Country.id.in_(Result))\
+			.all()
+
+		arr = []
+		for i in query:
+			arr.append({
+				'tmin_2020': i.__dict__['tmin_2020'], 
+				'tmin_2050': i.__dict__['tmin_2050'], 
+				'tmin_2100': i.__dict__['tmin_2100'], 
+				'dem': i.__dict__['dem'], 
+				'y': i.__dict__['y'], 
+				'x': i.__dict__['x'], 
+				'urban_distance': i.__dict__['urban_distance'], 
+				'tmax_2020': i.__dict__['tmax_2020'], 
+				'tmax_2050': i.__dict__['tmax_2050'], 
+				'tmax_2100': i.__dict__['tmax_2100'], 
+				'land': i.__dict__['land'], 
+				'slope': i.__dict__['slope'], 
+				'id': i.__dict__['id'], 
+				'arable_distance': i.__dict__['arable_distance'], 
+				'water_distance': i.__dict__['water_distance']
+			})
+
+		resp.body = json.dumps(arr)
+		resp.status = falcon.HTTP_200
 
 
 class search(object):
@@ -132,9 +165,17 @@ class search(object):
         return outside
 
 
-api = application = falcon.API()
+engine = create_engine("postgres://crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu")
+
+session_factory = sessionmaker(bind=engine)
+Session = scoped_session(session_factory)
+
+api = application = falcon.API(
+  middleware=[SQLAlchemySessionManager(Session), HandleCORS()]
+)
 
 tree_search = Resource()
 S = search()
 myglobal = S.depickle()
+
 api.add_route('/tree_search', tree_search)

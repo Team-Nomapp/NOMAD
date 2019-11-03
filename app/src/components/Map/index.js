@@ -16,7 +16,7 @@ import { renderLocation, renderElevation, renderTemperature, renderRegions } fro
 import useContext from 'hooks/useContext';
 import { useMode } from './hooks';
 import lightingEffect from './lighting';
-import { createNotification, getWikiData, defaultViewState, processData, buildQuery } from './helpers';
+import { createNotification, getWikiData, defaultViewState, processData, buildQuery, extractTreeParams } from './helpers';
 
 const controller = { 
   type: MapController
@@ -77,17 +77,17 @@ const Map = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    const result = await axios.get(
+    const result = await axios.post(
       buildQuery(), {
-      params: {
+      ...extractTreeParams({
         ...state,
         temperature: [
           state.temperature[0] + 273.15,
           state.temperature[1] + 273.15
         ]
-      }
+      })
     }); 
-    const parsed = processData(result.data, year)
+    const parsed = processData(result.data, year);
     setResults(parsed);
   }
 

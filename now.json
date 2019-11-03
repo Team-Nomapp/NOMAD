@@ -2,10 +2,6 @@
   "version": 2,
   "name": "NOMAD",
   "builds": [
-    { 
-      "src": "api/index.js", 
-      "use": "@now/node" 
-    },
     {
       "src": "app/package.json",
       "use": "@now/static-build",
@@ -17,11 +13,6 @@
       "src": "/static/(.*)",
       "headers": { "cache-control": "s-maxage=31536000,immutable" },
       "dest": "app/static/$1"
-    },
-    {
-      "src": "/api/country",
-      "dest": "/api/index.js",
-      "methods": ["GET"]
     },
     { "src": "/favicon.ico", "dest": "app/favicon.ico" },
     { "src": "/img/(.*)", "dest": "app/img/$1"},
@@ -37,13 +28,13 @@
   "env": {
     "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token",
     "REACT_APP_POSTGRES_URL": "@react_app_postgres_url",
-    "TREE_SEARCH_API": "@tree_search_api"
+    "REACT_APP_TREE_SEARCH_API": "@react_app_tree_search_api"
   },
   "build": {
     "env": {
       "REACT_APP_MAPBOX_ACCESS_TOKEN": "@react_app_mapbox_access_token",
       "REACT_APP_POSTGRES_URL": "@react_app_postgres_url",
-      "TREE_SEARCH_API": "@tree_search_api"
+      "REACT_APP_TREE_SEARCH_API": "@react_app_tree_search_api"
     }
   }
 }

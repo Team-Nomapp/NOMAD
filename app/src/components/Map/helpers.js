@@ -25,9 +25,9 @@ export const processData = (data, year) => {
 
 export const buildQuery = () => {
   const url = process.env.NODE_ENV === "development" ?
-    "http://localhost:4000/api" : "/api";
+    "http://localhost:8000/tree_search" : process.env.REACT_APP_TREE_SEARCH_API;
   
-  return url + "/country";
+  return url;
 };
 
 export const groupByRegions = data => {
@@ -138,4 +138,21 @@ export const getWikiData = (data, setWiki) => {
       setWiki(wikiData);
     }, 0);
   }
+}
+
+export function extractTreeParams(params) {
+  return ({
+    land: params.land.toString(),
+    
+    minElevationDistribution: params.bumpy[0],
+    maxElevationDistribution: params.bumpy[1],
+    minFreshWaterProximity: params.water[0],
+    maxFreshWaterProximity: params.water[1],
+    minUrbanProximity: params.urban[0],
+    maxUrbanProximity: params.urban[1],
+    minArableProximity: params.arable[0],
+    maxArableProximity: params.arable[1],
+    minPredictedTempIncrease: params.temperature[0],
+    maxPredictedTempIncrease: params.temperature[1]
+  })
 }
