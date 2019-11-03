@@ -8,20 +8,29 @@ CopyLeft 2019 Gavin Dove
 """
 
 import falcon
-from falcon.http_status import HTTPStatus
+from falcon_cors import CORS
 import numpy
 import pickle
 import json
 from .db.models import *
 
-class HandleCORS(object):
-	def process_request(self, req, resp):
-		resp.set_header('Access-Control-Allow-Origin', '*')
-		resp.set_header('Access-Control-Allow-Methods', '*')
-		resp.set_header('Access-Control-Allow-Headers', '*')
-		resp.set_header('Access-Control-Max-Age', 1728000)  # 20 days
-		if req.method == 'OPTIONS':
-			raise HTTPStatus(falcon.HTTP_200, body='\n')
+# class HandleCORS(object):
+# 	def process_request(self, req, resp):
+# 		resp.set_header('Access-Control-Allow-Origin', '*')
+# 		resp.set_header('Access-Control-Allow-Methods', '*')
+# 		resp.set_header('Access-Control-Allow-Headers', '*')
+# 		resp.set_header('Access-Control-Max-Age', 1728000)  # 20 days
+# 		if req.method == 'OPTIONS':
+# 			raise HTTPStatus(falcon.HTTP_200, body='\n')
+
+cors = CORS(
+	allow_origins_list=[
+		'http://localhost:3000',
+		'https://www.nomapp.me'
+	],
+	allow_all_headers=True,
+	allow_all_methods=True
+)
 
 class Resource(object):
 
@@ -184,7 +193,7 @@ session_factory = sessionmaker(bind=engine)
 Session = scoped_session(session_factory)
 
 api = application = falcon.API(
-  middleware=[SQLAlchemySessionManager(Session), HandleCORS()]
+  middleware=[SQLAlchemySessionManager(Session), cors.middleware]
 )
 
 tree_search = Resource()
