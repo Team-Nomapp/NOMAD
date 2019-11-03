@@ -25,7 +25,7 @@ export const processData = (data, year) => {
 
 export const buildQuery = () => {
   const url = process.env.NODE_ENV === "development" ?
-    "http://localhost:8000/tree_search" : process.env.REACT_APP_TREE_SEARCH_API;
+    "http://localhost:8000/tree_search" : process.env.REACT_APP_TREE_SEARCH_API + "tree_search";
   
   return url;
 };
