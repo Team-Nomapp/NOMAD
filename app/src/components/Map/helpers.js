@@ -144,15 +144,15 @@ export function extractTreeParams(params) {
   return ({
     land: params.land.toString(),
     
-    minElevationDistribution: params.bumpy[0],
+    minElevationDistribution: params.bumpy[0] - 0.01,
     maxElevationDistribution: params.bumpy[1],
-    minFreshWaterProximity: params.water[0],
+    minFreshWaterProximity: params.water[0] - 0.01,
     maxFreshWaterProximity: params.water[1],
-    minUrbanProximity: params.urban[0],
+    minUrbanProximity: params.urban[0] - 0.01,
     maxUrbanProximity: params.urban[1],
-    minArableProximity: params.arable[0],
+    minArableProximity: params.arable[0] - 0.01,
     maxArableProximity: params.arable[1],
-    minPredictedTempIncrease: params.temperature[0],
+    minPredictedTempIncrease: params.temperature[0] - 0.01,
     maxPredictedTempIncrease: params.temperature[1]
   })
 }

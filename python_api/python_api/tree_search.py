@@ -37,41 +37,25 @@ class Resource(object):
 	def on_post(self, req, resp):
 		json_data = json.loads(req.stream.read())
 
-		# U_Rect = numpy.zeros((2,5))
-		# U_Rect[0,0] = float(json_data["minElevationDistribution"])
-		# U_Rect[1,0] = float(json_data["maxElevationDistribution"])
-		# U_Rect[0,1] = float(json_data["minFreshWaterProximity"])
-		# U_Rect[1,1] = float(json_data["maxFreshWaterProximity"])
-		# U_Rect[0,2] = float(json_data["minUrbanProximity"])
-		# U_Rect[1,2] = float(json_data["maxUrbanProximity"])
-		# U_Rect[0,3] = float(json_data["minArableProximity"])
-		# U_Rect[1,3] = float(json_data["maxArableProximity"])
-		# U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
-		# U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
+		U_Rect = numpy.zeros((2,5))
+		U_Rect[0,0] = float(json_data["minElevationDistribution"])
+		U_Rect[1,0] = float(json_data["maxElevationDistribution"])
+		U_Rect[0,1] = float(json_data["minFreshWaterProximity"])
+		U_Rect[1,1] = float(json_data["maxFreshWaterProximity"])
+		U_Rect[0,2] = float(json_data["minUrbanProximity"])
+		U_Rect[1,2] = float(json_data["maxUrbanProximity"])
+		U_Rect[0,3] = float(json_data["minArableProximity"])
+		U_Rect[1,3] = float(json_data["maxArableProximity"])
+		U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
+		U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
 
-		# global myglobal
-		# SS = search()
-		# Result = SS.radius_search(myglobal, U_Rect)
-
-		# query = self.session.query(Country)\
-		# 	.filter(
-        #         Country.land == int(json_data["land"]),\
-        #         Country.id.in_(Result),\
-        #     )\
-		# 	.all()
+		global myglobal
+		SS = search()
+		Result = SS.radius_search(myglobal, U_Rect)
 
 		query = self.session.query(Country)\
 			.filter(Country.land == int(json_data["land"]))\
-			.filter(Country.slope >= float(json_data["minElevationDistribution"]))\
-			.filter(Country.slope <= float(json_data["maxElevationDistribution"]))\
-			.filter(Country.tmin_2020 >= float(json_data["minPredictedTempIncrease"]))\
-			.filter(Country.tmax_2020 <= float(json_data["maxPredictedTempIncrease"]))\
-			.filter(Country.water_distance >= float(json_data["minFreshWaterProximity"]))\
-			.filter(Country.water_distance <= float(json_data["maxFreshWaterProximity"]))\
-			.filter(Country.urban_distance >= float(json_data["minUrbanProximity"]))\
-			.filter(Country.urban_distance <= float(json_data["maxUrbanProximity"]))\
-			.filter(Country.arable_distance >= float(json_data["minArableProximity"]))\
-			.filter(Country.arable_distance <= float(json_data["maxArableProximity"]))\
+			.filter(Country.id.in_(Result))\
 			.all()
 
 		arr = []

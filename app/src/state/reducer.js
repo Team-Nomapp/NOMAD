@@ -15,9 +15,9 @@ export const initialState = {
   land: null,
   year: ALL_YEARS[0],
   bumpy: [0, 60],
-  water: [0.4, 174],
+  water: [0, 174],
   temperature: [297 - 273.15, 307 - 273.15],
-  urban: [0.4, 170],
+  urban: [0, 170],
   arable: [0, 185]
 };
 
