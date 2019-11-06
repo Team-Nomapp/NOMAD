@@ -52,7 +52,7 @@ class Resource(object):
 		global myglobal
 		SS = search()
 		Result = SS.radius_search(myglobal, U_Rect)
-
+"""
 		query = self.session.query(Country)\
 			.filter(Country.land == int(json_data["land"]))\
 			.filter(Country.id.in_(Result))\
@@ -77,8 +77,8 @@ class Resource(object):
 				'arable_distance': i.__dict__['arable_distance'], 
 				'water_distance': i.__dict__['water_distance']
 			})
-
-		resp.body = json.dumps(arr)
+"""
+		resp.body = json.dumps(Result)
 		resp.status = falcon.HTTP_200
 
 
@@ -93,7 +93,7 @@ class search(object):
 
 		"""
 
-		file_name = "python_api/Final_Pickle_K"
+		file_name = "python_api/Final_Dict_Pickle"
 		file_object = open(file_name, 'rb')
 		FTrees = pickle.load(file_object)
 
@@ -145,7 +145,7 @@ class search(object):
 		while stack:
 
 			leaf_idx, leaf_data, left_hrect, \
-				right_hrect, left, right = stack.pop()
+				right_hrect, left, right, db = stack.pop()
 
 			# leaf
 			if leaf_idx is not None:
@@ -153,8 +153,9 @@ class search(object):
 				Num_Points = leaf_data.shape[1]
 				for count in range(Num_Points):
 					Current_Point = leaf_data[:,count]
+                    Current_Data = db[count]
 					if self.intersect_rect_point(Current_Point, input_rect):
-						inside.append(Current_Point)
+						inside.append(Current_Data)
 
 			else:
 
@@ -164,20 +165,20 @@ class search(object):
 				if self.intersect_rects(input_rect,right_hrect):
 					stack.append(tree[right])
 
-		outside = []
-		for arr in inside:
-			outside.append(arr[5])   
+		#outside = []
+		#for arr in inside:
+		#	outside.append(arr[5])   
 
-		return outside
+		return inside
 
 
-engine = create_engine("postgres://crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu")
+#engine = create_engine("postgres://#crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu")
 
-session_factory = sessionmaker(bind=engine)
-Session = scoped_session(session_factory)
+#session_factory = sessionmaker(bind=engine)
+#Session = scoped_session(session_factory)
 
 api = application = falcon.API(
-  middleware=[SQLAlchemySessionManager(Session), cors.middleware]
+  middleware=[cors.middleware]
 )
 
 tree_search = Resource()
