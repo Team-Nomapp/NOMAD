@@ -47,11 +47,13 @@ class Resource(object):
 		U_Rect[0,3] = float(json_data["minArableProximity"])
 		U_Rect[1,3] = float(json_data["maxArableProximity"])
 		U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
-		U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"]) 
+		U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"])
+
+        Land_Class = float(json_data["land"]) 
 
 		global myglobal
 		SS = search()
-		Result = SS.radius_search(myglobal, U_Rect)
+		Result = SS.radius_search(myglobal, U_Rect, Land_Class)
 """
 		query = self.session.query(Country)\
 			.filter(Country.land == int(json_data["land"]))\
@@ -133,7 +135,7 @@ class search(object):
 			return False
 
 
-	def radius_search(self, tree, input_rect):
+	def radius_search(self, tree, input_rect, input_land):
 
 		"""
 		find all points within user-defined hyper-rectangle, return list of 
@@ -154,7 +156,8 @@ class search(object):
 				for count in range(Num_Points):
 					Current_Point = leaf_data[:,count]
                     Current_Data = db[count]
-					if self.intersect_rect_point(Current_Point, input_rect):
+					if self.intersect_rect_point(Current_Point, input_rect) and \
+                        (input_land == Current_Data['land']):
 						inside.append(Current_Data)
 
 			else:
