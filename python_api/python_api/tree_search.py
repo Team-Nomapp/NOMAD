@@ -147,7 +147,7 @@ class search(object):
 		while stack:
 
 			leaf_idx, leaf_data, left_hrect, \
-				right_hrect, left, right, db = stack.pop()
+				right_hrect, left, right = stack.pop()
 
 			# leaf
 			if leaf_idx is not None:
@@ -155,9 +155,8 @@ class search(object):
 				Num_Points = leaf_data.shape[1]
 				for count in range(Num_Points):
 					Current_Point = leaf_data[:,count]
-					Current_Data = db[count]
 					if self.intersect_rect_point(Current_Point, input_rect):
-						inside.append(Current_Data)
+						inside.append(Current_Point)
 
 			else:
 
