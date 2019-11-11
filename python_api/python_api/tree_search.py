@@ -14,14 +14,14 @@ import pickle
 import json
 from .db.models import *
 
-# class HandleCORS(object):
-# 	def process_request(self, req, resp):
-# 		resp.set_header('Access-Control-Allow-Origin', '*')
-# 		resp.set_header('Access-Control-Allow-Methods', '*')
-# 		resp.set_header('Access-Control-Allow-Headers', '*')
-# 		resp.set_header('Access-Control-Max-Age', 1728000)  # 20 days
-# 		if req.method == 'OPTIONS':
-# 			raise HTTPStatus(falcon.HTTP_200, body='\n')
+#class HandleCORS(object):
+#	def process_request(self, req, resp):
+#		resp.set_header('Access-Control-Allow-Origin', '*')
+#		resp.set_header('Access-Control-Allow-Methods', '*')
+#		resp.set_header('Access-Control-Allow-Headers', '*')
+#		resp.set_header('Access-Control-Max-Age', 1728000)  # 20 days
+#		if req.method == 'OPTIONS':
+#			raise HTTPStatus(falcon.HTTP_200, body='\n')
 
 cors = CORS(
 	allow_origins_list=[
@@ -49,12 +49,12 @@ class Resource(object):
 		U_Rect[0,4] = float(json_data["minPredictedTempIncrease"])
 		U_Rect[1,4] = float(json_data["maxPredictedTempIncrease"])
 
-        Land_Class = float(json_data["land"]) 
+#        Land_Class = float(json_data["land"]) 
 
 		global myglobal
 		SS = search()
-		Result = SS.radius_search(myglobal, U_Rect, Land_Class)
-"""
+		Result = SS.radius_search(myglobal, U_Rect)
+
 		query = self.session.query(Country)\
 			.filter(Country.land == int(json_data["land"]))\
 			.filter(Country.id.in_(Result))\
@@ -79,8 +79,8 @@ class Resource(object):
 				'arable_distance': i.__dict__['arable_distance'], 
 				'water_distance': i.__dict__['water_distance']
 			})
-"""
-		resp.body = json.dumps(Result)
+
+		resp.body = json.dumps(arr)
 		resp.status = falcon.HTTP_200
 
 
@@ -95,7 +95,7 @@ class search(object):
 
 		"""
 
-		file_name = "python_api/Final_Dict_Pickle"
+		file_name = "python_api/Final_Updated_Pickle"
 		file_object = open(file_name, 'rb')
 		FTrees = pickle.load(file_object)
 
@@ -135,7 +135,7 @@ class search(object):
 			return False
 
 
-	def radius_search(self, tree, input_rect, input_land):
+	def radius_search(self, tree, input_rect):
 
 		"""
 		find all points within user-defined hyper-rectangle, return list of 
@@ -156,8 +156,7 @@ class search(object):
 				for count in range(Num_Points):
 					Current_Point = leaf_data[:,count]
                     Current_Data = db[count]
-					if self.intersect_rect_point(Current_Point, input_rect) and \
-                        (input_land == Current_Data['land']):
+					if self.intersect_rect_point(Current_Point, input_rect):
 						inside.append(Current_Data)
 
 			else:
@@ -168,20 +167,20 @@ class search(object):
 				if self.intersect_rects(input_rect,right_hrect):
 					stack.append(tree[right])
 
-		#outside = []
-		#for arr in inside:
-		#	outside.append(arr[5])   
+		outside = []
+		for arr in inside:
+			outside.append(arr[5])   
 
-		return inside
+		return outside
 
 
-#engine = create_engine("postgres://#crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu")
+engine = create_engine("postgres://crxnqdqu:kInJllQCS3PgB8ISVP8J13nfC9qNiB_E@salt.db.elephantsql.com:5432/crxnqdqu")
 
-#session_factory = sessionmaker(bind=engine)
-#Session = scoped_session(session_factory)
+session_factory = sessionmaker(bind=engine)
+Session = scoped_session(session_factory)
 
 api = application = falcon.API(
-  middleware=[cors.middleware]
+  middleware=[SQLAlchemySessionManager(Session), cors.middleware]
 )
 
 tree_search = Resource()
