@@ -44,34 +44,34 @@ const getRadius = d => d.length / 5;
 export default function _renderLayers(data, onHover) {
 
   return [
-    new ScatterplotLayer({
-      id: 'scatterplot-layer',
-      data,
-      pickable: true,
-      opacity: 0.1,
-      stroked: true,
-      filled: true,
-      radiusScale: 6,
-      radiusMinPixels: 1,
-      radiusMaxPixels: 100,
-      lineWidthMinPixels: 1,
-      getPosition: d => {
-        if (!d.coordinates || d.coordinates.length === 0) return [];
-        return [
-          d.coordinates[0].lon,
-          d.coordinates[0].lat
-        ];
-      },
-      getRadius,
-      getFillColor: d => [145, 213, 100],
-      getLineColor: d => [0, 0, 0],
-      onHover: ({ object, x, y }) => {
-        if (!object) {
-          onHover(false);
-        } else {
-          onHover({ object, x, y });
-        }
-      }
-    })
+    // new ScatterplotLayer({
+    //   id: 'scatterplot-layer',
+    //   data,
+    //   pickable: true,
+    //   opacity: 0.1,
+    //   stroked: true,
+    //   filled: true,
+    //   radiusScale: 6,
+    //   radiusMinPixels: 1,
+    //   radiusMaxPixels: 100,
+    //   lineWidthMinPixels: 1,
+    //   getPosition: d => {
+    //     if (!d.coordinates || d.coordinates.length === 0) return [];
+    //     return [
+    //       d.coordinates[0].lon,
+    //       d.coordinates[0].lat
+    //     ];
+    //   },
+    //   getRadius,
+    //   getFillColor: d => [145, 213, 100],
+    //   getLineColor: d => [0, 0, 0],
+    //   onHover: ({ object, x, y }) => {
+    //     if (!object) {
+    //       onHover(false);
+    //     } else {
+    //       onHover({ object, x, y });
+    //     }
+    //   }
+    // })
   ];
 }
