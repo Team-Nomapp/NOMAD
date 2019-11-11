@@ -155,7 +155,7 @@ class search(object):
 				Num_Points = leaf_data.shape[1]
 				for count in range(Num_Points):
 					Current_Point = leaf_data[:,count]
-                    Current_Data = db[count]
+					Current_Data = db[count]
 					if self.intersect_rect_point(Current_Point, input_rect):
 						inside.append(Current_Data)
 
