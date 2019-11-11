@@ -59,7 +59,7 @@ const Map = () => {
     setLoading(false);
     notification.destroy();
     createNotification(country && data.length === 0);
-    getWikiData(data, setWiki);
+    // getWikiData(data, setWiki);
   }, [ data ]);
 
   useEffect(() => {
