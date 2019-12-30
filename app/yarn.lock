@@ -2876,7 +2876,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@2, commander@^2.20.0:
+commander@2, commander@^2.20.0, commander@~2.20.3:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
 
@@ -2884,7 +2884,7 @@ commander@2.17.x:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
 
-commander@^2.11.0, commander@~2.20.0:
+commander@^2.11.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
 
@@ -3849,6 +3849,10 @@ es6-iterator@2.0.3, es6-iterator@~2.0.3:
     es5-ext "^0.10.35"
     es6-symbol "^3.1.1"
 
+es6-promise@^4.0.5:
+  version "4.2.8"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
+
 es6-symbol@^3.1.1, es6-symbol@~3.1.1:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.2.tgz#859fdd34f32e905ff06d752e7171ddd4444a7ed1"
@@ -4688,8 +4692,8 @@ handle-thing@^2.0.0:
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-2.0.0.tgz#0e039695ff50c93fc288557d696f3c1dc6776754"
 
 handlebars@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.5.3.tgz#5cf75bd8714f7605713511a56be7c349becb0482"
   dependencies:
     neo-async "^2.6.0"
     optimist "^0.6.1"
@@ -6321,6 +6325,13 @@ mapbox-gl@^1.0.0:
     tinyqueue "^2.0.0"
     vt-pbf "^3.1.1"
 
+mapbox@^1.0.0-beta10:
+  version "1.0.0-beta10"
+  resolved "https://registry.yarnpkg.com/mapbox/-/mapbox-1.0.0-beta10.tgz#037561bcb95cbdc066d1dff7e2ce1d6c8539cb8e"
+  dependencies:
+    es6-promise "^4.0.5"
+    rest "^2.0.0"
+
 math.gl@3.0.0, math.gl@^3.0.0, math.gl@^3.0.0-beta.3:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/math.gl/-/math.gl-3.0.0.tgz#fe7ee98bd9439a29942246b3fe7a36f27fba06b2"
@@ -6659,11 +6670,7 @@ negotiator@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
 
-neo-async@^2.5.0, neo-async@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
-
-neo-async@^2.6.1:
+neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
 
@@ -8633,6 +8640,13 @@ react-map-gl@^5.0.12:
     react-virtualized-auto-sizer "^1.0.2"
     viewport-mercator-project "^6.1.0"
 
+react-mapbox-gl-geocoder@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-mapbox-gl-geocoder/-/react-mapbox-gl-geocoder-1.1.0.tgz#f07e27a1329db711ec5843fbf1b78dbdc5930c9a"
+  dependencies:
+    mapbox "^1.0.0-beta10"
+    viewport-mercator-project "^6.0.0"
+
 react-router-dom@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.1.2.tgz#06701b834352f44d37fbb6311f870f84c76b9c18"
@@ -9059,6 +9073,10 @@ resolve@^1.10.0, resolve@^1.3.2, resolve@^1.5.0, resolve@^1.8.1:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.10.1.tgz#664842ac960795bbe758221cdccda61fb64b5f18"
   dependencies:
     path-parse "^1.0.6"
+
+rest@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/rest/-/rest-2.0.0.tgz#6dfadf66a405c49cfbd5b4bd25b59fd29cd861bc"
 
 restore-cursor@^2.0.0:
   version "2.0.0"
@@ -10127,10 +10145,10 @@ uglify-js@3.4.x:
     source-map "~0.6.1"
 
 uglify-js@^3.1.4:
-  version "3.5.11"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.5.11.tgz#833442c0aa29b3a7d34344c7c63adaa3f3504f6a"
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.7.3.tgz#f918fce9182f466d5140f24bb0ff35c2d32dcc6a"
   dependencies:
-    commander "~2.20.0"
+    commander "~2.20.3"
     source-map "~0.6.1"
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
@@ -10310,7 +10328,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-viewport-mercator-project@^6.1.0:
+viewport-mercator-project@^6.0.0, viewport-mercator-project@^6.1.0:
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/viewport-mercator-project/-/viewport-mercator-project-6.2.2.tgz#f524819ad53fcc009b46136a59f73461bfcf1604"
   dependencies:
